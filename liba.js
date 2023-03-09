@@ -3,7 +3,7 @@ function convertAxisAdaptive(value, max, type) {
   if (!type) {
     type = "";
   }
-  let fixed = 3;
+  let fixed = 2;
   if (max < 1000) {
     return addSpaceFixed(value, fixed) + " " + type;
   }
