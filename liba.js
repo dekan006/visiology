@@ -1,5 +1,5 @@
 //https://cdn.jsdelivr.net/gh/dekan006/visiology/liba.js
-function convertAdaptive(value, max, type) {
+function convertAxisAdaptive(value, max, type) {
   let fixed = 2;
   if (max < 1000) {
     return addSpaceFixed(value, fixed) + " " + type;
