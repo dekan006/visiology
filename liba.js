@@ -37,7 +37,8 @@ function addSpaceFixed(value, fixed) {
 
 function formatTooltipChart(thisData, type) {
   return (
-    thisData.key + ": " + convertAxisAdaptive(thisData.y, thisData.y, type)
+    //thisData.key + ": " + convertAxisAdaptive(thisData.y, thisData.y, type)
+    convertAxisAdaptive(thisData.y, thisData.y, type)
   );
 }
 
