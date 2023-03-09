@@ -53,3 +53,28 @@ function addCss(css) {
 }
 
 console.log("LIBA RUN***************");
+
+let arrayFilterAdd = [
+  "Федеральный уровень",
+  "Уровень субъекта РФ",
+  "Муниципальный уровень",
+  "Иные",
+  "******ПРОЧИЕ******",
+];
+let arrayFilterRemove = ["<Пусто>", "<ОТСЕВ>", "НЕ ОПРЕДЕЛЕНО"];
+
+function updateFilterValue(arr) {
+  if (arrayFilterAdd.length > 0) {
+    arr.length = 0;
+    arrayFilterAdd.map((item, index) => {
+      arr[index] = {
+        text: item,
+        id: item,
+        lazyLoading: false,
+      };
+    });
+  }
+  return arr.filter((item, index) => {
+    return arrayFilterRemove.indexOf(item.text) < 0;
+  });
+}
