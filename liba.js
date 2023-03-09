@@ -3,7 +3,7 @@ function convertAxisAdaptive(value, max, type) {
   if (!type) {
     type = "";
   }
-  let fixed = 2;
+  let fixed = 3;
   if (max < 1000) {
     return addSpaceFixed(value, fixed) + " " + type;
   }
@@ -59,8 +59,6 @@ let arrayFilterAdd = [
   "Уровень субъекта РФ",
   "Муниципальный уровень",
   "Иные",
-  "******ПРОЧИЕ******",
-  "***Другие***",
 ];
 let arrayFilterRemove = ["<Пусто>", "<ОТСЕВ>", "НЕ ОПРЕДЕЛЕНО"];
 
