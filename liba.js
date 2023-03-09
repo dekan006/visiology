@@ -1,12 +1,5 @@
-function dateNow(param) {
-  console.log("Run date Now");
-  console.log("wwwww", param);
-
-  let dt = new Date();
-  console.log(dt.toLocaleTimeString());
-}
-
-function convertAxisAdaptive(value, max, type) {
+//https://cdn.jsdelivr.net/gh/dekan006/visiology/liba.js
+function convertAdaptive(value, max, type) {
   let fixed = 2;
   if (max < 1000) {
     return addSpaceFixed(value, fixed) + " " + type;
