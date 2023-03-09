@@ -1,5 +1,8 @@
 //https://cdn.jsdelivr.net/gh/dekan006/visiology/liba.js
 function convertAxisAdaptive(value, max, type) {
+  if (!type) {
+    type = "";
+  }
   let fixed = 2;
   if (max < 1000) {
     return addSpaceFixed(value, fixed) + " " + type;
@@ -30,6 +33,10 @@ function addSpaceFixed(value, fixed) {
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
     .replace(".", ",");
+}
+
+function formatTooltipChart(this, type) {
+    return this.key +': '+ convertAxisAdaptive(this.y, this.y, type);
 }
 
 function extendObj(obj1, obj2) {
