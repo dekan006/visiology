@@ -49,3 +49,5 @@ function extendObj(obj1, obj2) {
 function addCss(css) {
   document.head.appendChild(document.createElement("style")).innerHTML = css;
 }
+
+console.log('LIBA RUN***************')
