@@ -3,7 +3,7 @@ function convertAxisAdaptive(value, max, type) {
   if (!type) {
     type = "";
   }
-  let fixed = 0;
+  let fixed = 2;
   if (max < 1000) {
     return addSpaceFixed(value, fixed) + " " + type;
   }
@@ -37,8 +37,8 @@ function addSpaceFixed(value, fixed) {
 
 function formatTooltipChart(thisData, type) {
   return (
-    thisData.key + ": " + convertAxisAdaptive(thisData.y, thisData.y, type)
-    // convertAxisAdaptive(thisData.y, thisData.y, type)
+    // thisData.key + ": " + convertAxisAdaptive(thisData.y, thisData.y, type)
+    convertAxisAdaptive(thisData.y, thisData.y, type)
   );
 }
 
@@ -60,7 +60,6 @@ let arrayFilterAdd = [
   "Уровень субъекта РФ",
   "Муниципальный уровень",
   "Иные",
-  "***Прочие****",
 ];
 let arrayFilterRemove = ["<Пусто>", "<ОТСЕВ>", "НЕ ОПРЕДЕЛЕНО"];
 
@@ -87,7 +86,7 @@ function checkNoData(w) {
     element.className = "table-nodata";
     element.style =
       "position: absolute; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 980; font-family: Roboto; background-color: rgba(255,255,255,1); top:240px; left:0px; right:0px; bottom:0px; border-radius: 10px";
-    element.innerHTML = `<div style="font-size: 200px; color: blue"><i class="fa fa-times-circle-o" aria-hidden="true"></i></div>
+    element.innerHTML = `<div style="font-size: 98px; color: silver"><i class="fa fa-times-circle-o" aria-hidden="true"></i></div>
         <div style="font-size: 28px">По заданным фильтрам нет данных</div>`;
 
     $(".va-widgets-container").append(element);
