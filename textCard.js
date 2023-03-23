@@ -26,3 +26,18 @@ function textCard_checkNoData(w) {
     $(".table-nodata").remove();
   }
 }
+
+function textCard_render(w) {
+  w.general.text = convertAxisAdaptive(
+    w.data.values[0][0],
+    w.data.values[0][0],
+    "шт."
+  );
+
+  TextRender({
+    text: w.general,
+    style: w.style,
+  });
+
+  textCard_checkNoData(w);
+}
