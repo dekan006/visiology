@@ -1,9 +1,5 @@
 function textCard_updateData(w) {
-  w.general.text = convertAxisAdaptive(
-    w.data.values[0][0],
-    w.data.values[0][0],
-    "шт."
-  );
+  w.style.color = "red";
   return w;
 }
 
