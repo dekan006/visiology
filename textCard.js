@@ -1,3 +1,12 @@
+function textCard_updateData(w) {
+  w.general.text = convertAxisAdaptive(
+    w.data.values[0][0],
+    w.data.values[0][0],
+    "шт."
+  );
+  return w;
+}
+
 function textCard_checkNoData(w) {
   if (!w.data.values[0][0]) {
     $(".table-nodata").remove();
@@ -25,19 +34,4 @@ function textCard_checkNoData(w) {
   } else {
     $(".table-nodata").remove();
   }
-}
-
-function textCard_render(w) {
-  w.general.text = convertAxisAdaptive(
-    w.data.values[0][0],
-    w.data.values[0][0],
-    "шт."
-  );
-
-  TextRender({
-    text: w.general,
-    style: w.style,
-  });
-
-  textCard_checkNoData(w);
 }
