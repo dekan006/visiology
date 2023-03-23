@@ -29,3 +29,4 @@ function addSpaceFixed(value, fixed) {
     .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
     .replace(".", ",");
 }
+//
