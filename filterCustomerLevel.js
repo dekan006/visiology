@@ -1,10 +1,39 @@
-// filterId - 01
+// filterId - 02
 
-function filterYear_updateData(w) {
+let arrayFilterAdd = [
+  //   "Федеральный уровень",
+  //   "Уровень субъекта РФ",
+  //   "Муниципальный уровень",
+  //   "Иные",
+  //   "****Прочие*****",
+];
+let arrayFilterRemove = ["<Пусто>", "<ОТСЕВ>", "НЕ ОПРЕДЕЛЕНО"];
+
+function updateFilterValue(arr) {
+  if (arrayFilterAdd.length > 0) {
+    arr.length = 0;
+    arrayFilterAdd.map((item, index) => {
+      arr[index] = {
+        text: item,
+        id: item,
+        lazyLoading: false,
+      };
+    });
+  }
+  return arr.filter((item) => {
+    return arrayFilterRemove.indexOf(item.text) < 0;
+  });
+}
+
+function filterCustomerLevel_updateData(w) {
+  w.data.data = updateFilterValue(w.data.data);
+  w.data.data.sort(function (a, b) {
+    return a.text > b.text ? -1 : 1;
+  });
   return w;
 }
 
-function filterYear_cssStyle(w) {
+function filterCustomerLevel_cssStyle(w) {
   var widget = $("#" + w.general.renderTo);
 
   //Изменить шрифт вложеных значений
@@ -43,4 +72,33 @@ function filterYear_cssStyle(w) {
   $("#widget-" + w.general.renderTo)
     .find(".rb-filter-selection-buttons-container")
     .css({ display: "none" });
+}
+
+function filterCustomerLevel_checkBudgetLevel(
+  infoBudgetLevel,
+  idGRBS,
+  idSubjectRF
+) {
+  if (
+    infoBudgetLevel.length === 1 &&
+    infoBudgetLevel[0][0] === "Федеральный уровень"
+  ) {
+    $("#widget-" + idSubjectRF).css({
+      "pointer-events": "none",
+      opacity: "0",
+    });
+    $("#widget-" + idGRBS).css({
+      "pointer-events": "all",
+      opacity: "1",
+    });
+  } else {
+    $("#widget-" + idSubjectRF).css({
+      "pointer-events": "all",
+      opacity: "1",
+    });
+    $("#widget-" + idGRBS).css({
+      "pointer-events": "none",
+      opacity: "0",
+    });
+  }
 }
