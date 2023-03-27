@@ -14,8 +14,6 @@ function extendObj(obj1, obj2) {
   return obj1;
 }
 
-function addCss(css) {
-  document.head.appendChild(document.createElement("style")).innerHTML = css;
-}
+
 
 console.log("LIBA RUN***************");

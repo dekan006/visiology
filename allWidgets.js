@@ -29,4 +29,8 @@ function addSpaceFixed(value, fixed) {
     .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
     .replace(".", ",");
 }
+
+function addCss(css) {
+  document.head.appendChild(document.createElement("style")).innerHTML = css;
+}
 //
