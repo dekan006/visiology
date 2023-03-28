@@ -1,4 +1,11 @@
 // filterId - 02
+function filterCustomerLevel_updateData(w) {
+  w.data.data = updateFilterValue(w.data.data);
+  w.data.data.sort(function (a, b) {
+    return a.text > b.text ? -1 : 1;
+  });
+  return w;
+}
 
 let arrayFilterAdd = [
   //   "Федеральный уровень",
@@ -23,14 +30,6 @@ function updateFilterValue(arr) {
   return arr.filter((item) => {
     return arrayFilterRemove.indexOf(item.text) < 0;
   });
-}
-
-function filterCustomerLevel_updateData(w) {
-  w.data.data = updateFilterValue(w.data.data);
-  w.data.data.sort(function (a, b) {
-    return a.text > b.text ? -1 : 1;
-  });
-  return w;
 }
 
 function filterCustomerLevel_cssStyle(w) {

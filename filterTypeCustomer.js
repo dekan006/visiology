@@ -1,5 +1,9 @@
 // filterId - 03
 
+function filterTypeCustomer_updateData(w) {
+  return w;
+}
+
 function filterTypeCustomer_cssStyle(w) {
   var widget = $("#" + w.general.renderTo);
 
