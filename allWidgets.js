@@ -33,4 +33,16 @@ function addSpaceFixed(value, fixed) {
 function addCss(css) {
   document.head.appendChild(document.createElement("style")).innerHTML = css;
 }
+
+function copy(aObject) {
+  const bObject = Array.isArray(aObject) ? [] : {};
+
+  let value;
+  for (const key in aObject) {
+    value = aObject[key];
+    bObject[key] = typeof value === "object" ? copy(value) : value;
+  }
+
+  return bObject;
+}
 //
