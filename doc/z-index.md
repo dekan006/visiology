@@ -8,15 +8,16 @@
 | table    | z-index: 120 |
 | chart    | z-index: 130 |
 | button   | z-index: 140 |
-| checkbox | z-index: 150 |
+| checkbox | z-index: 810 |
 | filter   | z-index: 900 |
 
 ## Zoom-Widget
 
-| Zoom-Widget | z-index      |
-| ----------- | ------------ |
-| table       | z-index: 820 |
-| chart       | z-index: 830 |
+| Zoom-Widget   | z-index      |
+| ------------- | ------------ |
+| chartCheckbox | z-index: 800 |
+| table         | z-index: 820 |
+| chart         | z-index: 830 |
 
 ## Tooltip-noData
 
