@@ -2,16 +2,16 @@
 
 ## Widget
 
-| Widget            | z-index      |
-| ----------------- | ------------ |
-| text              | z-index: 110 |
-| table             | z-index: 120 |
-| chart             | z-index: 130 |
-| button            | z-index: 140 |
-| zoomChartCheckbox | z-index: 800 |
-| checkbox          | z-index: 810 |
-| zoomTable         | z-index: 820 |
-| zoomChart         | z-index: 830 |
-| noData            | z-index: 880 |
-| filter            | z-index: 900 |
-| help              | z-index: 980 |
+| Widget            | z-index |
+| ----------------- | ------- |
+| text              | 110     |
+| table             | 120     |
+| chart             | 130     |
+| button            | 140     |
+| zoomChartCheckbox | 800     |
+| checkbox          | 810     |
+| zoomTable         | 820     |
+| zoomChart         | 830     |
+| noData            | 880     |
+| filter            | 900     |
+| help              | 980     |
