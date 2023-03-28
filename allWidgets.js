@@ -47,42 +47,34 @@ function copy(aObject) {
 }
 
 function chartAxisAdaptiveLabel(value, max, fixed = 2) {
-  let label = "";
   if (max < 1000) {
-    label = addSpaceFixed(value, fixed);
+    return addSpaceFixed(value, fixed);
   }
   if (max < 1000000) {
-    label = addSpaceFixed(Math.round(value / 10) / 100, fixed);
+    return addSpaceFixed(Math.round(value / 10) / 100, fixed);
   }
   if (max < 1000000000) {
-    label = addSpaceFixed(Math.round(value / 10000) / 100, fixed);
+    return addSpaceFixed(Math.round(value / 10000) / 100, fixed);
   }
   if (max < 1000000000000) {
-    label = addSpaceFixed(Math.round(value / 10000000) / 100, fixed);
+    return addSpaceFixed(Math.round(value / 10000000) / 100, fixed);
   }
-  if (max >= 1000000000000) {
-    label = addSpaceFixed(Math.round(value / 10000000000) / 100, fixed);
-  }
-  return label;
+  return addSpaceFixed(Math.round(value / 10000000000) / 100, fixed);
 }
 
 function chartAxisAdaptiveTitle(max, type) {
-  let title = "";
   if (max < 1000) {
-    title = " " + type;
+    return " " + type;
   }
   if (max < 1000000) {
-    title = " тыс " + type;
+    return " тыс " + type;
   }
   if (max < 1000000000) {
-    title = " млн " + type;
+    return " млн " + type;
   }
   if (max < 1000000000000) {
-    title = " млрд " + type;
+    return " млрд " + type;
   }
-  if (max >= 1000000000000) {
-    title = " трлн " + type;
-  }
-  return title;
+  return " трлн " + type;
 }
 //
