@@ -1,5 +1,5 @@
 function textCard_updateData(w) {
-  w.style.color = "red";
+  // w.style.color = "red";
   return w;
 }
 

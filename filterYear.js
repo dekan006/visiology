@@ -1,6 +1,29 @@
 // filterId - 01
 
 function filterYear_updateData(w) {
+  const minYear = 2020; // Минимальный год выдачи, не может быть меньше 2000 года
+  const maxYear = 2023; // Максимальный год выдачи, не может быть больше текущего года
+
+  w.data.data = filteredYears(w.data.data, minYear, maxYear);
+
+  function filteredYears(filterArray, minYear, maxYear) {
+    const date = new Date();
+    const currentYear = date.getFullYear();
+
+    if (!filterArray || !Array.isArray(filterArray))
+      return w.data.data.filter(
+        (item) => +item.id >= 0 && +item.id <= currentYear
+      );
+    if (!minYear || !Number.isFinite(minYear) || +minYear < 2000)
+      minYear = 2000;
+    if (!maxYear || !Number.isFinite(maxYear) || +maxYear > currentYear)
+      maxYear = currentYear;
+
+    return filterArray.filter(
+      (item) => +item.id >= minYear && +item.id <= maxYear
+    );
+  }
+
   return w;
 }
 
