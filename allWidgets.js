@@ -45,4 +45,44 @@ function copy(aObject) {
 
   return bObject;
 }
+
+function chartAxisAdaptiveLabel(value, max, fixed = 2) {
+  let label = "";
+  if (max < 1000) {
+    label = addSpaceFixed(value, fixed);
+  }
+  if (max < 1000000) {
+    label = addSpaceFixed(Math.round(value / 10) / 100, fixed);
+  }
+  if (max < 1000000000) {
+    label = addSpaceFixed(Math.round(value / 10000) / 100, fixed);
+  }
+  if (max < 1000000000000) {
+    label = addSpaceFixed(Math.round(value / 10000000) / 100, fixed);
+  }
+  if (max >= 1000000000000) {
+    label = addSpaceFixed(Math.round(value / 10000000000) / 100, fixed);
+  }
+  return label;
+}
+
+function chartAxisAdaptiveTitle(max, type) {
+  let title = "";
+  if (max < 1000) {
+    title = " " + type;
+  }
+  if (max < 1000000) {
+    title = " тыс " + type;
+  }
+  if (max < 1000000000) {
+    title = " млн " + type;
+  }
+  if (max < 1000000000000) {
+    title = " млрд " + type;
+  }
+  if (max >= 1000000000000) {
+    title = " трлн " + type;
+  }
+  return title;
+}
 //
