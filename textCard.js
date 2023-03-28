@@ -1,5 +1,6 @@
 function textCard_updateData(w) {
   // w.style.color = "red";
+  // w.style.fontSize = "30px";
   return w;
 }
 
