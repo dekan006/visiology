@@ -22,7 +22,7 @@ function chartColumn_beforeRender(w) {
   return w;
 }
 
-function chartColumn_afterRender(chart) {
+function chartColumn_afterRender(chart, type) {
   const maxVal = chart.yAxis[0].max; // получаем объект оси Y
 
   chart.update({
