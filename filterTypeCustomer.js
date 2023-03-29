@@ -1,4 +1,4 @@
-// filterId - 03
+// filterId - 03 фильтр Тип организации заказчика
 
 function filterTypeCustomer_updateData(w) {
   return w;

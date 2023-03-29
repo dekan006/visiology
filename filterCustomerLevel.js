@@ -1,4 +1,4 @@
-// filterId - 02
+// filterId - 02 фильтр Уровень организации заказчика
 function filterCustomerLevel_updateData(w) {
   w.data.data = updateFilterValue(w.data.data);
   w.data.data.sort(function (a, b) {

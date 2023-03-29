@@ -1,4 +1,4 @@
-// filterId - 01
+// filterId - 01 Фильтр Дата заключения контракта
 
 function filterYear_updateData(w) {
   const minYear = 2020; // Минимальный год выдачи, не может быть меньше 2000 года

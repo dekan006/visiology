@@ -1,39 +1,9 @@
-// фильтр Субъект РФ
-function filterSubjectRF_updateData(w) {
-  w = filterSubjectRF_addNewRegion(w);
+// фильтр Способ определения поставщика
+function filterMethodSupplier_updateData(w) {
   return w;
 }
 
-function filterSubjectRF_addNewRegion(w) {
-  const newRegion = [
-    [
-      "Южный федеральный округ",
-      "Луганская Народная Республика",
-      "Луганская Народная Республика",
-    ],
-    [
-      "Южный федеральный округ",
-      "Донецкая Народная Республика",
-      "Донецкая Народная Республика",
-    ],
-    ["Южный федеральный округ", "Херсонская область", "Херсонская область"],
-    ["Южный федеральный округ", "Запорожская область", "Запорожская область"],
-    ["Южный федеральный округ", "Камчатский край", "Запорожская область"],
-    ["Южный федеральный округ", "Крым", "Крым"],
-  ];
-
-  let mySet = new Set();
-  w.data.rows.forEach((item) => mySet.add(item[1]));
-
-  newRegion.forEach((item) => {
-    if (!mySet.has(item[1])) {
-      w.data.rows.push(item);
-    }
-  });
-  return w;
-}
-
-function filterSubjectRF_cssStyle(w) {
+function filterMethodSupplier_cssStyle(w) {
   const width = 0; // Ширина выпадающего списка виджета. Если 0 - остается неизменна
   const height = 510; // Высота выпадающего списка виджета. Если 0 - остается неизменна
   const widgetId = $("#widget-" + w.general.renderTo);
@@ -45,12 +15,12 @@ function filterSubjectRF_cssStyle(w) {
   });
 
   widgetId.css({
-    "font-family": "Open Sans",
+    "font-family": "Roboto",
     "z-index": "999",
   });
 
   widgetId.find(".rb-filter-cloud-tag-container").css({
-    "font-family": "Open Sans",
+    "font-family": "Roboto",
     margin: "0 0 5px 0",
     "font-size": "14px",
   });
@@ -87,10 +57,10 @@ function filterSubjectRF_cssStyle(w) {
   });
 
   widgetId.find(".button").hover(
-    () => {
+    function () {
       $(this).css("opacity", "0.7");
     },
-    () => {
+    function () {
       $(this).css("opacity", "1");
     }
   );
@@ -123,52 +93,52 @@ function filterSubjectRF_cssStyle(w) {
     padding: "5px 10px",
   });
 
-  // изменить стрелку выпадающего меню
-  widget.find(".rb-filter-header-arrow").css({
+  //изменить стрелку выпадающего меню
+  $(".rb-filter-header-arrow").css({
     color: "#0033FF",
   });
-  widget.find(".rb-filter-header-close").css({
+  $(".rb-filter-header-close").css({
     color: "#0033FF",
   });
 
   widgetId.find(".dx-texteditor-input")[0].classList.add("rb-filter-search");
   widgetId.addClass("widgetHeight");
 
-  const styleMagicLabel = document.createElement("style");
+  let styleMagicLabel = document.createElement("style");
   styleMagicLabel.className = "style-magic-label-" + w.general.renderTo;
-  const styleWidgetHeight = document.createElement("style");
+  let styleWidgetHeight = document.createElement("style");
   styleWidgetHeight.className = "style-widget-height-" + w.general.renderTo;
   styleMagicLabel.innerText = ".magic + label:after{top: 5px;left: 5px;}";
   styleWidgetHeight.innerText = ".widgetHeight {display: table-caption;}";
   document.body.appendChild(styleMagicLabel);
   document.body.appendChild(styleWidgetHeight);
 
-  const checkboxStateFocused = document.createElement("style");
+  let checkboxStateFocused = document.createElement("style");
   checkboxStateFocused.className =
     "checkbox-state-focused-" + w.general.renderTo;
   checkboxStateFocused.innerText =
     ".dx-treeview-item-with-checkbox.dx-state-focused > .dx-checkbox .dx-checkbox-icon {border: 1px solid #47c148;}";
   document.body.appendChild(checkboxStateFocused);
 
-  const checkboxStateHover = document.createElement("style");
+  let checkboxStateHover = document.createElement("style");
   checkboxStateHover.className = "checkbox-state-hover-" + w.general.renderTo;
   checkboxStateHover.innerText =
     ".dx-checkbox.dx-state-hover .dx-checkbox-icon {border: 1px solid #47c148;}";
   document.body.appendChild(checkboxStateHover);
 
-  const checkboxIconBefore = document.createElement("style");
+  let checkboxIconBefore = document.createElement("style");
   checkboxIconBefore.className = "checkbox-icon-before-" + w.general.renderTo;
   checkboxIconBefore.innerText =
     ".dx-checkbox-indeterminate .dx-checkbox-icon::before {background-color: #47c148;}";
   document.body.appendChild(checkboxIconBefore);
 
-  const checkboxChecked = document.createElement("style");
+  let checkboxChecked = document.createElement("style");
   checkboxChecked.className = "checkbox-checked-" + w.general.renderTo;
   checkboxChecked.innerText =
     ".dx-checkbox-checked .dx-checkbox-icon::before  {color: white; background-color: #47c148;width: 20px;height: 20px;margin-left: 0;margin-top: 0;top: -1px;left: -1px;padding-top: 2px;} .dx-checkbox-icon{width: 20px; height: 20px; font-size: 14px; font-weight: 900;}";
   document.body.appendChild(checkboxChecked);
 
-  const checkboxContainer = document.createElement("style");
+  let checkboxContainer = document.createElement("style");
   checkboxContainer.className = "checkbox-container-" + w.general.renderTo;
   checkboxContainer.innerText =
     ".dx-checkbox-icon {border-radius: 5px;} .dx-checkbox-container{border-radius: 5px;} .dx-checkbox-checked .dx-checkbox-icon {font: bold 15px DXIcons;}";
@@ -193,10 +163,4 @@ function filterSubjectRF_cssStyle(w) {
   widgetId
     .find(".rb-tag-title")
     .css({ "font-family": "Roboto", color: "#334059 !important" });
-  widgetId.find(".dx-checkbox").css({
-    top: "10px",
-  });
-  widgetId.find(".dx-treeview-toggle-item-visibility").css({
-    top: "3px",
-  });
 }
