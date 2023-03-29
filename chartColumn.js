@@ -18,12 +18,15 @@ function chartColumn_cssStyle(w) {
   headerContainer.prepend(zoom);
 }
 
-function chartColumn_beforeRender(w) {
+function chartColumn_beforeRender(w, type) {
+  w.tooltip.formatter = function () {
+    return chartColumn_formatTooltip(this, type);
+  };
   return w;
 }
 
 function chartColumn_afterRender(chart, type) {
-  const maxVal = chart.yAxis[0].max; // получаем объект оси Y
+  const maxVal = chart.yAxis[0].max; // получаем максимальное значение оси Y
 
   chart.update({
     yAxis: {
