@@ -17,3 +17,21 @@ function chartColumn_cssStyle(w) {
 
   headerContainer.prepend(zoom);
 }
+
+function chartColumn_beforeRender(w) {
+  return w;
+}
+
+function chartColumn_afterRender(chart) {
+  const maxVal = chart.yAxis[0].max; // получаем объект оси Y
+
+  chart.update({
+    yAxis: {
+      title: {
+        text: chartAxisAdaptiveTitle(maxVal, type),
+      },
+    },
+  });
+
+  return chart;
+}
