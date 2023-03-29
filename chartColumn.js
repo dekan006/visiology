@@ -45,6 +45,11 @@ function chartColumn_afterRender(chart, type) {
         x: 0,
         y: -20,
       },
+      labels: {
+        formatter: function () {
+          return chartAxisAdaptiveLabel(this.value, this.axis.max);
+        },
+      },
     },
     tooltip: {
       formatter: function () {
