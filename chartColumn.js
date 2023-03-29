@@ -42,7 +42,7 @@ function chartColumn_afterRender(chart, type) {
           fontSize: "16px",
           fontWeight: "normal",
         },
-        //offset: 0,
+        offset: 0,
         x: 0,
         y: -20,
       },
