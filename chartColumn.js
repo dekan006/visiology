@@ -19,8 +19,11 @@ function chartColumn_cssStyle(w) {
 }
 
 function chartColumn_beforeRender(w, type) {
-  w.tooltip.formatter = function () {
-    return chartColumn_formatTooltip(this, type);
+  w.plotOptions.series.events = {
+    legendItemClick(e) {
+      e.preventDefault();
+      return false;
+    },
   };
   return w;
 }
@@ -32,6 +35,20 @@ function chartColumn_afterRender(chart, type) {
     yAxis: {
       title: {
         text: chartAxisAdaptiveTitle(maxVal, type),
+        align: "high",
+        rotation: 0,
+        style: {
+          fontSize: "16px",
+          fontWeight: "normal",
+        },
+        offset: 0,
+        x: 0,
+        y: -20,
+      },
+    },
+    tooltip: {
+      formatter: function () {
+        return chartColumn_formatTooltip(this, type);
       },
     },
   });
