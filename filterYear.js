@@ -1,8 +1,8 @@
 // filterId - 01 Фильтр Дата заключения контракта
 
-function filterYear_updateData(w) {
-  const minYear = 2020; // Минимальный год выдачи, не может быть меньше 2000 года
-  const maxYear = 2023; // Максимальный год выдачи, не может быть больше текущего года
+function filterYear_updateData(w, props) {
+  const minYear = props.minYear || 2020; // Минимальный год выдачи, не может быть меньше 2000 года
+  const maxYear = props.maxYear || 2023; // Максимальный год выдачи, не может быть больше текущего года
 
   w.data.data = filteredYears(w.data.data, minYear, maxYear);
 
@@ -27,7 +27,7 @@ function filterYear_updateData(w) {
   return w;
 }
 
-function filterYear_cssStyle(w) {
+function filterYear_cssStyle(w, props) {
   var widget = $("#" + w.general.renderTo);
 
   //Изменить шрифт вложеных значений
@@ -53,7 +53,7 @@ function filterYear_cssStyle(w) {
   // Мин Ширина выпадающего списка и ширина выпадающего списка
   widget
     .find(".rb-filter-body-container")
-    .css({ "min-width": "310px", width: "310px" });
+    .css({ "min-width": "310px", width: width ? width + "px" : "310px" });
 
   // Изменяем цвет контура фильтра
   widget
@@ -66,4 +66,12 @@ function filterYear_cssStyle(w) {
   $("#widget-" + w.general.renderTo)
     .find(".rb-filter-selection-buttons-container")
     .css({ display: "none" });
+    
+  // Позиционирование выпадающего списка
+  if (props.listPosition) {
+    widget.find(".rb-filter-body-container").css({
+      position: "absolute",
+      [listPosition]: 0,
+    });
+  }
 }
