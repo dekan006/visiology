@@ -1,7 +1,12 @@
 function chartPie_formatTooltip(thisData, type) {
   return (
     // thisData.key + ": " + convertAxisAdaptive(thisData.y, thisData.y, type)
-    thisData.key + ": " + convertAxisAdaptive(thisData.y, thisData.y, type)
+    thisData.key +
+    ": " +
+    convertAxisAdaptive(thisData.y, thisData.y, type) +
+    "(" +
+    addSpaceFixed(thisData.percentage, 2) +
+    "%)"
   );
 }
 
@@ -51,7 +56,7 @@ function chartPie_afterRender(chart, type) {
         dataLabels: {
           enabled: true,
           style: {
-            textOutline: "1px 1px black",
+            textOutline: "none", // '1px white'
           },
         },
       },
