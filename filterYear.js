@@ -53,7 +53,10 @@ function filterYear_cssStyle(w, props) {
   // Мин Ширина выпадающего списка и ширина выпадающего списка
   widget
     .find(".rb-filter-body-container")
-    .css({ "min-width": "310px", width: width ? width + "px" : "310px" });
+    .css({
+      "min-width": "310px",
+      width: props.width ? props.width + "px" : "310px",
+    });
 
   // Изменяем цвет контура фильтра
   widget
@@ -66,7 +69,7 @@ function filterYear_cssStyle(w, props) {
   $("#widget-" + w.general.renderTo)
     .find(".rb-filter-selection-buttons-container")
     .css({ display: "none" });
-    
+
   // Позиционирование выпадающего списка
   if (props.listPosition) {
     widget.find(".rb-filter-body-container").css({
