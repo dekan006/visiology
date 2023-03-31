@@ -32,12 +32,6 @@ function chartPie_beforeRender(w, type) {
     textOverflow: "none",
   };
 
-  w.plotOptions.series.events = {
-    legendItemClick(e) {
-      e.preventDefault();
-      return false;
-    },
-  };
   return w;
 }
 
