@@ -318,6 +318,7 @@ function table_tableZoom(w) {
 }
 
 function table_toogleClassArrowSort(columnsValId, w) {
+  const widget = $("#" + w.general.renderTo);
   const data = w.pivotGridOptions.dataSource.getData();
   const arrowSort = data.sort === "max" ? "arrow-down" : "arrow-up";
   $(widget.find(".fa-sort")[columnsValId])
