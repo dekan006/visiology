@@ -186,6 +186,8 @@ function table_addSortArrow(w) {
     .find("td");
   let columnsValId = 0;
 
+  console.log("columns", colums);
+
   // создание и добавление элементов в каждый столбец
   for (let i = 0; i < columsSpan.length; i++) {
     const span = document.createElement("span");
