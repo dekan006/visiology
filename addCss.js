@@ -19,7 +19,7 @@ document.head.appendChild(document.createElement("style")).innerHTML = `
         background: white;
         max-width: 1000px;
         width: max-content;
-        border: 1px solid #000057;
+        border: 1px solid #00000057;
         border-radius: 5px;
     }
     .help-tooltip-text{
