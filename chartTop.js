@@ -1,6 +1,33 @@
 function chartTop_cssStyle(w) {}
 
 function chartTop_beforeRender(w, type) {
+  // Изменение стилей текста
+  w.drilldown.activeAxisLabelStyle.fontFamily = "Roboto";
+  w.drilldown.activeDataLabelStyle.fontFamily = "Roboto";
+  w.legend.itemStyle.fontFamily = "Roboto";
+  w.plotOptions.series.dataLabels.style.fontFamily = "Roboto";
+  w.xAxis.title.style.fontFamily = "Roboto";
+  w.yAxis.title.style.fontFamily = "Roboto";
+  w.xAxis.labels.style.fontFamily = "Roboto";
+  w.yAxis.labels.style.fontFamily = "Roboto";
+  w.tooltip.style.fontFamily = "Roboto";
+
+  w.xAxis.categories = series[0].data
+    .sort(function (a, b) {
+      return a.y > b.y ? -1 : 1;
+    })
+    .map((item) => {
+      return item.name;
+    });
+
+  // Адаптивные подписи значений, осей - цена/штуки
+  w.yAxis.labels.formatter = function () {
+    return convertAxisAdaptiveLabel(this.value, this.axis.max, type);
+  };
+
+  w.xAxis.labels.align = "left";
+  w.xAxis.labels.reserveSpace = true;
+
   return w;
 }
 

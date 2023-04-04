@@ -8,6 +8,7 @@ function filterGRBS_cssStyle(w) {
   const height = 510; // Высота выпадающего списка виджета. Если 0 - остается неизменна
   const widgetId = $("#widget-" + w.general.renderTo);
   const widget = $("#" + w.general.renderTo);
+
   widget.css({
     background: "white",
     display: "block",
