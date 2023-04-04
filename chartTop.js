@@ -14,10 +14,6 @@ function chartTop_beforeRender(w, type) {
 
 
   // Адаптивные подписи значений, осей - цена/штуки
-  w.yAxis.labels.formatter = function () {
-    return convertAxisAdaptiveLabel(this.value, this.axis.max, type);
-  };
-
   w.xAxis.labels.align = "left";
   w.xAxis.labels.reserveSpace = true;
 

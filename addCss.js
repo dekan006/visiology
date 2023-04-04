@@ -36,8 +36,6 @@ document.head.appendChild(document.createElement("style")).innerHTML = `
     .zoom-color{
         fill: blue;
     }
-
-    
     .chart-title-label {
         position: absolute; 
         font-family: "Roboto"; 
