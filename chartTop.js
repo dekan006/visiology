@@ -12,13 +12,6 @@ function chartTop_beforeRender(w, type) {
   w.yAxis.labels.style.fontFamily = "Roboto";
   w.tooltip.style.fontFamily = "Roboto";
 
-  w.xAxis.categories = series[0].data
-    .sort(function (a, b) {
-      return a.y > b.y ? -1 : 1;
-    })
-    .map((item) => {
-      return item.name;
-    });
 
   // Адаптивные подписи значений, осей - цена/штуки
   w.yAxis.labels.formatter = function () {
