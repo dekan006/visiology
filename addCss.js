@@ -96,5 +96,5 @@ document.head.appendChild(document.createElement("style")).innerHTML = `
     left: 30px;
     }
     .z-index-1000 {
-        z-index: 1000
+        z-index: 1000 !important
     }`;
