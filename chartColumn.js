@@ -59,7 +59,7 @@ function chartColumn_afterRender(chart, type) {
         align: "high",
         rotation: 0,
         style: {
-          fontSize: "16px",
+          fontSize: "18px",
           fontWeight: "normal",
         },
         offset: 0,
