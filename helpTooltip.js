@@ -7,7 +7,7 @@ function helpTooltip_afterRender(w, position, textTooltip) {
   // };
 
   widgetId.css({
-    "z-index": "999",
+    "z-index": "1000",
   });
 
   function createTooltip() {
