@@ -9,22 +9,15 @@ function chartColumn_cssStyle(w) {
   const wigetId = $("#widget-" + w.general.renderTo);
   const headerContainer = wigetId.find(".va-widget-header-container");
 
-  const zoom = document.createElement("img");
-  zoom.className = "chart-zoom-" + w.general.renderTo;
-  zoom.style.cursor = "pointer";
+  const zoom = document.createElement("div");
+  zoom.className = "chart-icon-zoom-" + w.general.renderTo;
   zoom.style.paddingLeft = "10px";
-  zoom.src = "https://img.icons8.com/ios/25/null/search--v1.png";
-
+  zoom.style.cursor = "pointer";
+  zoom.innerHTML = iconZoomSVG;
   headerContainer.prepend(zoom);
 }
 
 function chartColumn_beforeRender(w, type) {
-  w.plotOptions.series.events = {
-    legendItemClick(e) {
-      e.preventDefault();
-      return false;
-    },
-  };
   return w;
 }
 
@@ -58,7 +51,7 @@ function chartColumn_afterRender(chart, type) {
       series: {
         events: {
           legendItemClick(e) {
-            e.preventDefault();
+            e.preventDefault(); // отменяет действия мыши на легенде графика
             return false;
           },
         },
