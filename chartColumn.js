@@ -18,6 +18,30 @@ function chartColumn_cssStyle(w) {
 }
 
 function chartColumn_beforeRender(w, type) {
+  w.xAxis.categories = sortByMonth(w.xAxis.categories);
+  function sortByMonth(arr) {
+    const months = [
+      "январь",
+      "февраль",
+      "март",
+      "апрель",
+      "май",
+      "июнь",
+      "июль",
+      "август",
+      "сентябрь",
+      "октябрь",
+      "ноябрь",
+      "декабрь",
+    ];
+    arr.sort((a, b) => months.indexOf(a) - months.indexOf(b));
+    return arr;
+  }
+
+  w.tooltip.formatter = function () {
+    return chartColumn_formatTooltip(this, type);
+  };
+
   return w;
 }
 
@@ -28,6 +52,7 @@ function chartColumn_afterRender(chart, type) {
     chart: {
       marginTop: 30,
     },
+    // добавляем сверху заголовок единиц измерений
     yAxis: {
       title: {
         text: chartAxisAdaptiveTitle(maxVal, type),
@@ -41,6 +66,7 @@ function chartColumn_afterRender(chart, type) {
         x: 0,
         y: -20,
       },
+      // форматирование значений для оси измерений
       labels: {
         formatter: function () {
           return chartAxisAdaptiveLabel(this.value, this.axis.max);
