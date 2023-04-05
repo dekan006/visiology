@@ -4,8 +4,8 @@ function filterMethodSupplier_updateData(w) {
 }
 
 function filterMethodSupplier_cssStyle(w) {
-  const width = 0; // Ширина выпадающего списка виджета. Если 0 - остается неизменна
-  const height = 510; // Высота выпадающего списка виджета. Если 0 - остается неизменна
+  const width = w.props.width || 0; // Ширина выпадающего списка виджета. Если 0 - остается неизменна
+  const height = w.props.height || 510; // Высота выпадающего списка виджета. Если 0 - остается неизменна
   const widgetId = $("#widget-" + w.general.renderTo);
   const widget = $("#" + w.general.renderTo);
 
