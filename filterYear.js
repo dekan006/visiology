@@ -56,10 +56,10 @@ function filterYear_cssStyle(w, props) {
     width: props.width ? props.width + "px" : "310px",
   });
 
-  // Мин dscjnf выпадающего списка
+  // Мин высота выпадающего списка
   widget.find(".rb-filter-list-container").css({
     "min-height": "200px",
-    width: props.height ? props.height + "px" : "200px",
+    height: props.height ? props.height + "px" : "200px",
   });
 
   // Изменяем цвет контура фильтра
