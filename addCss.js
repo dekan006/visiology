@@ -94,4 +94,7 @@ document.head.appendChild(document.createElement("style")).innerHTML = `
     }
     .help-tooltip-left {
     left: 30px;
+    }
+    .z-index-1000 {
+        z-index: 1000
     }`;
