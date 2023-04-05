@@ -14,18 +14,18 @@ function helpTooltip_afterRender(w, position, textTooltip) {
     $("#help-tooltip-" + w.general.renderTo).remove();
     const tooltip = document.createElement("div");
     tooltip.id = "help-tooltip-" + w.general.renderTo;
-    tooltip.className = `help-tooltip help-tooltip-${position}`;
+    tooltip.className = `lib-help-tooltip lib-help-tooltip-${position}`;
     tooltip.innerHTML =
-      '<span class="help-tooltip-text">' + textTooltip + "</span>";
+      '<span class="lib-help-tooltip-text">' + textTooltip + "</span>";
     widgetId.append(tooltip);
   }
 
   function showTooltip() {
-    widgetId.find(".help-tooltip").show();
+    widgetId.find(".lib-help-tooltip").show();
   }
 
   function hideTooltip() {
-    widgetId.find(".help-tooltip").hide();
+    widgetId.find(".lib-help-tooltip").hide();
   }
 
   createTooltip();
