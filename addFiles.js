@@ -108,3 +108,9 @@ scriptPM18.classList.add("visiology-liba");
 scriptPM18.src =
   "https://dekan006.github.io/visiology/filterFoundationSingleSupplier.js";
 document.querySelector("head").append(scriptPM18);
+
+const scriptPM19 = document.createElement("script");
+scriptPM19.type = "text/javascript";
+scriptPM19.classList.add("visiology-liba");
+scriptPM19.src = "https://dekan006.github.io/visiology/checkbox.js";
+document.querySelector("head").append(scriptPM19);
