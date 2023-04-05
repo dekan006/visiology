@@ -32,7 +32,9 @@ function chartColumn_afterRender(chart, type) {
   const maxVal = chart.yAxis[0].max; // получаем максимальное значение оси Y
 
   chart.update({
-    chart: {},
+    chart: {
+      marginTop: 30,
+    },
     yAxis: {
       title: {
         text: chartAxisAdaptiveTitle(maxVal, type),

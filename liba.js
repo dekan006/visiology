@@ -14,8 +14,4 @@ function chartColumn_formatTooltip(thisData, type) {
   );
 }
 
-function visiologyApi(id) {
-  const filterValue = visApi().getSelectedValues(id);
-  console.log("LIBA VIS - filterValue:  ", filterValue[0][0]);
-}
 console.log("LIBA RUN***************");
