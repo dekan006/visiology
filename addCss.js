@@ -98,3 +98,5 @@ document.head.appendChild(document.createElement("style")).innerHTML = `
     .lib-z-index-1000 {
         z-index: 1000 !important
     }`;
+
+//Today is Thursday
