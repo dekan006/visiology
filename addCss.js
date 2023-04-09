@@ -99,6 +99,6 @@ document.head.appendChild(document.createElement("style")).innerHTML = `
         left: 50%;
         transform: translateX(-50%);
     }
-    .lib-z-index-1000 {
+    .lib-z-index-tooltipHelp {
         z-index: 1000 !important
     }`;

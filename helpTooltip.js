@@ -10,7 +10,7 @@ function helpTooltip_afterRender(w, position, textTooltip) {
   //   "z-index": "1000",
   // });
 
-  widgetId.addClass("lib-z-index-1000");
+  widgetId.addClass("lib-z-index-tooltipHelp");
 
   function createTooltip() {
     $("#help-tooltip-" + w.general.renderTo).remove();
