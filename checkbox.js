@@ -3,7 +3,7 @@ function checkbox_updateData(w) {
 
   $("#checkbox").dxCheckBox({
     value: false,
-    text: "Накопительный итог",
+    text: w.props.title || "Накопительный итог",
     onValueChanged(e) {
       let filterValue = e.value === true ? "Накопительный итог" : "";
       visApi().setFilterSelectedValues(
@@ -20,7 +20,7 @@ function checkbox_updateData(w) {
   });
 
   $(".dx-checkbox-text").css({
-    "font-size": "14px",
+    "font-size": w.props.fontSizeTitle || "14px",
     "min-width": "250px",
     "padding-left": "30px",
   });
