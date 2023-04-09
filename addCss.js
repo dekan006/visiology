@@ -90,10 +90,14 @@ document.head.appendChild(document.createElement("style")).innerHTML = `
         font-size: 18px;
     }
     .lib-help-tooltip-right {
-    right: 30px;
+        right: 30px;
     }
     .lib-help-tooltip-left {
-    left: 30px;
+        left: 30px;
+    }
+    .lib-help-tooltip-center {
+        left: 50%;
+        transform: translateX(-50%);
     }
     .lib-z-index-1000 {
         z-index: 1000 !important
