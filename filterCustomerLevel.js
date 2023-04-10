@@ -1,22 +1,22 @@
 // filterId - 02 фильтр Уровень организации заказчика
 function filterCustomerLevel_updateData(w) {
-  w.data.data = updateFilterValue(w.data.data);
+  w.data.data = filterCustomerLevel_updateFilterValue(w.data.data);
   w.data.data.sort(function (a, b) {
     return a.text > b.text ? -1 : 1;
   });
   return w;
 }
 
-let arrayFilterAdd = [
-  //   "Федеральный уровень",
-  //   "Уровень субъекта РФ",
-  //   "Муниципальный уровень",
-  //   "Иные",
-  //   "****Прочие*****",
-];
-let arrayFilterRemove = ["<Пусто>", "<ОТСЕВ>", "НЕ ОПРЕДЕЛЕНО"];
+function filterCustomerLevel_updateFilterValue(arr) {
+  let arrayFilterAdd = [
+    //   "Федеральный уровень",
+    //   "Уровень субъекта РФ",
+    //   "Муниципальный уровень",
+    //   "Иные",
+    //   "****Прочие*****",
+  ];
+  let arrayFilterRemove = ["<Пусто>", "<ОТСЕВ>", "НЕ ОПРЕДЕЛЕНО"];
 
-function updateFilterValue(arr) {
   if (arrayFilterAdd.length > 0) {
     arr.length = 0;
     arrayFilterAdd.map((item, index) => {
