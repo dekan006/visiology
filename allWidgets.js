@@ -62,20 +62,46 @@ function chartAxisAdaptiveLabel(value, max, fixed = 2) {
   return addSpaceFixed(Math.round(value / 10000000000) / 100, fixed);
 }
 
+// function chartAxisAdaptiveLabel(value, max, fixed = 2) {
+//   let divider = 1;
+//   let labels = [
+//   { max: 1000, divider: 1 },
+//   { max: 1000000, divider: 100 },
+//   { max: 1000000000, divider: 10000 },
+//   { max: 1000000000000, divider: 10000000 }
+//   ];
+
+//   for (let label of labels) {
+//   if (max < label.max) {
+//   divider = label.divider;
+//   break;
+//   }
+//   }
+
+//   let roundedValue = Math.round(value / divider) / 100;
+//   return addSpaceFixed(roundedValue, fixed);
+//   }
+
+// function chartAxisAdaptiveTitle(max, type) {
+//   if (max < 1000) {
+//     return " " + type;
+//   }
+//   if (max < 1000000) {
+//     return " тыс " + type;
+//   }
+//   if (max < 1000000000) {
+//     return " млн " + type;
+//   }
+//   if (max < 1000000000000) {
+//     return " млрд " + type;
+//   }
+//   return " трлн " + type;
+// }
+
 function chartAxisAdaptiveTitle(max, type) {
-  if (max < 1000) {
-    return " " + type;
-  }
-  if (max < 1000000) {
-    return " тыс " + type;
-  }
-  if (max < 1000000000) {
-    return " млн " + type;
-  }
-  if (max < 1000000000000) {
-    return " млрд " + type;
-  }
-  return " трлн " + type;
+  const units = [" ", " тыс", " млн", " млрд", " трлн"];
+  const index = Math.floor(Math.log10(max) / 3);
+  return units[index] + type;
 }
 
 const iconZoomSVG =
