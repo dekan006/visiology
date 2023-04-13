@@ -25,13 +25,15 @@ function convertAxisAdaptive(value, max, type = "", fixed = 2) {
 function addSpaceFixed(value, fixed) {
   return value
     .toFixed(fixed)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-    .replace(".", ",");
+    .replace(/\./, ",")
+    .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
 function addCss(css) {
-  document.head.appendChild(document.createElement("style")).innerHTML = css;
+  const style = document.createElement("style");
+  style.type = "text/css";
+  style.textContent = css;
+  document.head.appendChild(style);
 }
 
 function copy(aObject) {
@@ -82,7 +84,7 @@ function chartAxisAdaptiveLabel(value, max, fixed = 2) {
 //   return addSpaceFixed(roundedValue, fixed);
 //   }
 
-// function chartAxisAdaptiveTitle(max, type) {
+//function chartAxisAdaptiveTitle(max, type) {
 //   if (max < 1000) {
 //     return " " + type;
 //   }
