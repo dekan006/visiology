@@ -49,18 +49,17 @@ document.head.appendChild(document.createElement("style")).innerHTML = `
         font-size: 25px; 
         color: #334059
     }
-    .lib-сumulative-total {
+    .lib-cumulative-total {
         right: 20px;
         left: auto !important;
     }
-    .lib-сumulative-total {
+    .lib-cumulative-total {
         right: 75px;
         left: auto !important;
     }
-    .lib-сumulative-total-size {
+    .lib-cumulative-total-size {
         font-size: 22px !important;
     }
-
     .lib-imgZoom-top {
         cursor: pointer;  
         position: absolute; 
