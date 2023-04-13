@@ -1,4 +1,9 @@
 // filterId - 02 фильтр Уровень организации заказчика
+
+// props = {
+//      localStorageInit: false,   // Необходимо ли подствалять значения в фильтр из LocalStorage
+// }
+
 function filterCustomerLevel_updateData(w) {
   w.data.data = filterCustomerLevel_updateFilterValue(w.data.data);
   w.data.data.sort(function (a, b) {
