@@ -121,7 +121,7 @@ $(".visiology-liba").remove();
 // scriptPM20.src = "https://gitlab.com/Dekan06/visiology/-/raw/main/textCard.js";
 // document.querySelector("head").append(scriptPM20);
 
-const scripts = [
+const urlArr = [
   "https://dekan006.github.io/visiology/liba.js",
   "https://dekan006.github.io/visiology/allWidgets.js",
   "https://dekan006.github.io/visiology/filterYear.js",
@@ -143,7 +143,7 @@ const scripts = [
   "https://dekan006.github.io/visiology/checkbox.js",
 ];
 
-scripts.forEach((url) => {
+urlArr.forEach((url) => {
   const script = document.createElement("script");
   script.src = url;
   script.type = "text/javascript";
