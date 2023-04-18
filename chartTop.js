@@ -29,7 +29,14 @@ function chartTop_beforeRender(w, type) {
 }
 
 function chartTop_afterRender(chart, type, w) {
-  let tickAmount = 7;
+  chart.yAxis[0].update(
+    {
+      tickAmount: 7, // Количество разбияния оси
+    },
+    false
+  );
+  chart.redraw();
+
   let maxVal = chart.yAxis[0].max;
   let isZoomed = document
     .getElementById(w.general.renderTo)
@@ -41,7 +48,6 @@ function chartTop_afterRender(chart, type, w) {
       marginBottom: isZoomed ? 80 : 60,
     },
     yAxis: {
-      tickAmount: tickAmount,
       labels: {
         formatter: function formatter() {
           let tick = this.axis.tickPositions;
