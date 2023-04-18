@@ -18,6 +18,7 @@ function chartColumn_cssStyle(w) {
 }
 
 function chartColumn_beforeRender(w, type) {
+  const widgetId = $("#widget-" + w.general.renderTo);
   const labelFontSize = "14px";
   const labelFontSizeZoom = "22px";
   const titleAxisFontSize = "16px";
