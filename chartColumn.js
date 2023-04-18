@@ -107,7 +107,7 @@ function chartColumn_afterRender(chart, type, w) {
   //   chart.yAxis[0].tickPositions.length > 10
   //     ? 10
   //     : chart.yAxis[0].tickPositions.length;
-  let tickAmount = 7;
+  let tickAmount = 7; // На сколько значений разбивать ось значений
 
   chart.update({
     chart: {
@@ -125,8 +125,9 @@ function chartColumn_afterRender(chart, type, w) {
           fontSize: isZoomed ? "22px" : "16px",
           fontWeight: "normal",
         },
+        textAlign: 'left',
         offset: 0,
-        x: isZoomed ? 35 : 25,
+        x: isZoomed ? -70 : -50,
         y: isZoomed ? -20 : -15,
       },
       // форматирование значений для оси измерений
