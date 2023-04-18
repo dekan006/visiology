@@ -93,47 +93,38 @@ function chartColumn_beforeRender(w, type) {
 
   return w;
 }
-
 function chartColumn_afterRender(chart, type, w) {
-  const widgetId = $("#widget-" + w.general.renderTo);
-  const isZoomed = document
-    .getElementById(w.general.renderTo)
-    .classList.contains("modal");
-  const maxVal = chart.yAxis[0].max; // получаем максимальное значение оси Y
-  let tickAmount =
-    chart.yAxis[0].tickPositions.length > 10
-      ? 10
-      : chart.yAxis[0].tickPositions.length;
+  let titleXValue = 25
+  let titleXZoomValue = 35
+  let titleYValue = -15
+  let titleYZoomValue = -25
+  const widgetId = $(`#widget-${w.general.renderTo}`);
+  const isZoomed = document.getElementById(w.general.renderTo).classList.contains("modal");
+  const yAxis = chart.yAxis[0];
+  const maxVal = yAxis.max;
+  const tickAmount = Math.min(yAxis.tickPositions.length, 10);
+  const titleX = isZoomed ? titleXZoomValue : titleXValue;
+  const titleY = isZoomed ? -titleYZoomValue : -titleYValue;
 
   chart.update({
-    // chart: {
-    //   marginTop: 30,
-    // },
-    // добавляем сверху заголовок единиц измерений
     yAxis: {
       tickAmount: tickAmount,
       title: {
         text: chartAxisAdaptiveTitle(maxVal, type),
         align: "high",
         rotation: 0,
-        // style: {
-        //   fontSize: isZoomed ? "22px" : "16px",
-        //   fontWeight: "normal",
-        // },
         offset: 0,
-        x: isZoomed ? 35 : 25,
-        y: isZoomed ? -25 : -15,
+        x: titleX,
+        y: titleY,
       },
-      // форматирование значений для оси измерений
       labels: {
-        formatter: function formatter() {
-          let tick = this.axis.tickPositions;
-          if (this.value === 0) {
+        formatter: function() {
+          const tick = yAxis.tickPositions;
+          const value = this.value;
+          if (value === 0) {
             return 0;
           }
-          let arr = tick.map((item) =>
-            chartAxisAdaptiveLabel(item, this.axis.max).slice(-2)
-          );
+          const arr = tick.map((item) => chartAxisAdaptiveLabel(item, yAxis.max).slice(-2));
           let fixed = 2;
           if (arr.every((elem) => elem.charAt(1) === "0")) {
             fixed = 1;
@@ -141,31 +132,105 @@ function chartColumn_afterRender(chart, type, w) {
           if (arr.every((elem) => elem === "00")) {
             fixed = 0;
           }
-          return chartAxisAdaptiveLabel(this.value, this.axis.max, fixed);
+          return chartAxisAdaptiveLabel(value, yAxis.max, fixed);
         },
       },
     },
     plotOptions: {
       series: {
         events: {
-          legendItemClick(e) {
-            e.preventDefault(); // отменяет действия мыши на легенде графика
-            return false;
+          legendItemClick: function(e) {
+            e.preventDefault();
           },
         },
       },
     },
     tooltip: {
-      formatter: function () {
+      formatter: function() {
         return chartColumn_formatTooltip(this, type);
       },
     },
   });
 
-  // Сделать видимой область графика которая выходит за пределы контейнера с графиком (необходимо для yAxis.title)
   $("#" + w.general.renderTo).css({ overflow: "visible" });
   widgetId.find(".highcharts-container").css({ overflow: "visible" });
   widgetId.find("svg.highcharts-root").attr("overflow", "visible");
 
   return chart;
 }
+
+// function chartColumn_afterRender(chart, type, w) {
+//   const widgetId = $("#widget-" + w.general.renderTo);
+//   const isZoomed = document
+//     .getElementById(w.general.renderTo)
+//     .classList.contains("modal");
+//   const maxVal = chart.yAxis[0].max; // получаем максимальное значение оси Y
+//   let tickAmount =
+//     chart.yAxis[0].tickPositions.length > 10
+//       ? 10
+//       : chart.yAxis[0].tickPositions.length;
+//
+//   chart.update({
+//     // chart: {
+//     //   marginTop: 30,
+//     // },
+//     // добавляем сверху заголовок единиц измерений
+//     yAxis: {
+//       tickAmount: tickAmount,
+//       title: {
+//         text: chartAxisAdaptiveTitle(maxVal, type),
+//         align: "high",
+//         rotation: 0,
+//         // style: {
+//         //   fontSize: isZoomed ? "22px" : "16px",
+//         //   fontWeight: "normal",
+//         // },
+//         offset: 0,
+//         x: isZoomed ? 35 : 25,
+//         y: isZoomed ? -25 : -15,
+//       },
+//       // форматирование значений для оси измерений
+//       labels: {
+//         formatter: function formatter() {
+//           let tick = this.axis.tickPositions;
+//           if (this.value === 0) {
+//             return 0;
+//           }
+//           let arr = tick.map((item) =>
+//             chartAxisAdaptiveLabel(item, this.axis.max).slice(-2)
+//           );
+//           let fixed = 2;
+//           if (arr.every((elem) => elem.charAt(1) === "0")) {
+//             fixed = 1;
+//           }
+//           if (arr.every((elem) => elem === "00")) {
+//             fixed = 0;
+//           }
+//           return chartAxisAdaptiveLabel(this.value, this.axis.max, fixed);
+//         },
+//       },
+//     },
+//     plotOptions: {
+//       series: {
+//         events: {
+//           legendItemClick(e) {
+//             e.preventDefault(); // отменяет действия мыши на легенде графика
+//             return false;
+//           },
+//         },
+//       },
+//     },
+//     tooltip: {
+//       formatter: function () {
+//         return chartColumn_formatTooltip(this, type);
+//       },
+//     },
+//   });
+//
+//   // Сделать видимой область графика которая выходит за пределы контейнера с графиком (необходимо для yAxis.title)
+//   $("#" + w.general.renderTo).css({ overflow: "visible" });
+//   widgetId.find(".highcharts-container").css({ overflow: "visible" });
+//   widgetId.find("svg.highcharts-root").attr("overflow", "visible");
+//
+//   return chart;
+// }
