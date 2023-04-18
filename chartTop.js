@@ -28,7 +28,7 @@ function chartTop_beforeRender(w, type) {
   return w;
 }
 
-function chartTop_afterRender(chart, type) {
+function chartTop_afterRender(chart, type, w) {
   let tickAmount = 7;
   let maxVal = chart.yAxis[0].max;
   let isZoomed = document
