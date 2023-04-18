@@ -87,6 +87,8 @@ function chartColumn_beforeRender(w) {
     return arr;
   }
 
+  w.yAxis.tickAmount = 7; //На сколько значений разбивать ось значений
+
   return w;
 }
 

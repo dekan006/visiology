@@ -25,18 +25,12 @@ function chartTop_beforeRender(w, type) {
   w.yAxis.labels.style.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
   w.yAxis.title.style.fontSize = isZoomed ? titleFontSizeZoom : titleFontSize;
 
+  w.yAxis.tickAmount = 7; //На сколько значений разбивать ось значений
+
   return w;
 }
 
 function chartTop_afterRender(chart, type, w) {
-  chart.yAxis[0].update(
-    {
-      tickAmount: 7, // Количество разбияния оси
-    },
-    false
-  );
-  chart.redraw();
-
   let maxVal = chart.yAxis[0].max;
   let isZoomed = document
     .getElementById(w.general.renderTo)
