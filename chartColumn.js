@@ -52,6 +52,9 @@ function chartColumn_beforeRender(w, type) {
     ? titleAxisSizeZoom
     : titleAxisFontSize;
   w.yAxis.labels.style.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
+  w.yAxis.title.style.fontSize = isZoomed
+    ? titleAxisSizeZoom
+    : titleAxisFontSize;
   w.yAxis.stackLabels.style.fontSize = isZoomed
     ? labelFontSizeZoom
     : labelFontSize;
@@ -107,9 +110,10 @@ function chartColumn_afterRender(chart, type, w) {
   let tickAmount = 7;
 
   chart.update({
-    // chart: {
-    //   marginTop: 30,
-    // },
+    chart: {
+      marginLeft: isZoomed ? 90 : 65,
+      marginTop: isZoomed ? 20 : 10,
+    },
     // добавляем сверху заголовок единиц измерений
     yAxis: {
       tickAmount: tickAmount,
@@ -117,13 +121,13 @@ function chartColumn_afterRender(chart, type, w) {
         text: chartAxisAdaptiveTitle(maxVal, type),
         align: "high",
         rotation: 0,
-        // style: {
-        //   fontSize: isZoomed ? "22px" : "16px",
-        //   fontWeight: "normal",
-        // },
+        style: {
+          fontSize: isZoomed ? "22px" : "16px",
+          fontWeight: "normal",
+        },
         offset: 0,
         x: isZoomed ? 35 : 25,
-        y: isZoomed ? -25 : -15,
+        y: isZoomed ? -20 : -15,
       },
       // форматирование значений для оси измерений
       labels: {

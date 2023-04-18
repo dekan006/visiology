@@ -5,37 +5,15 @@ const widgetIdByMonth = "4a7558028ae8428c9e0e7bbdb6896cfe"; // график ди
 const widgetId = $("#widget-" + w.general.renderTo);
 
 // Изменение стилей текста
-w.drilldown.activeAxisLabelStyle.fontFamily = "Roboto";
-w.drilldown.activeDataLabelStyle.fontFamily = "Roboto";
-w.legend.itemStyle.fontFamily = "Roboto";
-w.plotOptions.series.dataLabels.style.fontFamily = "Roboto";
-w.xAxis.title.style.fontFamily = "Roboto";
-w.yAxis.title.style.fontFamily = "Roboto";
-w.xAxis.labels.style.fontFamily = "Roboto";
-w.yAxis.labels.style.fontFamily = "Roboto";
-w.tooltip.style.fontFamily = "Roboto";
-
-function upadateTextSize() {
-  const isZoomed = document
-    .getElementById(w.general.renderTo)
-    .classList.contains("modal");
-  widgetId.find(".va-widget-header")[0].style.fontSize = isZoomed
-    ? "26px"
-    : "21px";
-  w.legend.itemStyle.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
-  w.tooltip.style.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
-  w.plotOptions.series.dataLabels.style.fontSize = isZoomed
-    ? labelFontSizeZoom
-    : labelFontSize;
-  w.xAxis.labels.style.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
-  w.xAxis.title.style.fontSize = isZoomed
-    ? titleAxisSizeZoom
-    : titleAxisFontSize;
-  w.yAxis.labels.style.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
-  w.yAxis.stackLabels.style.fontSize = isZoomed
-    ? labelFontSizeZoom
-    : labelFontSize;
-}
+// w.drilldown.activeAxisLabelStyle.fontFamily = "Roboto";
+// w.drilldown.activeDataLabelStyle.fontFamily = "Roboto";
+// w.legend.itemStyle.fontFamily = "Roboto";
+// w.plotOptions.series.dataLabels.style.fontFamily = "Roboto";
+// w.xAxis.title.style.fontFamily = "Roboto";
+// w.yAxis.title.style.fontFamily = "Roboto";
+// w.xAxis.labels.style.fontFamily = "Roboto";
+// w.yAxis.labels.style.fontFamily = "Roboto";
+// w.tooltip.style.fontFamily = "Roboto";
 
 // Зумирование графика при нажатии на иконку "лупа"
 function zoomChart() {
@@ -77,11 +55,11 @@ function zoomChart() {
         font-size: 25px; 
         color: #334059
     }
-    .сumulative-total {
+    .cumulative-total {
         right: 20px;
         left: auto !important;
     }
-    .сumulative-total-size {
+    .cumulative-total-size {
         font-size: 22px !important;
     }
     `;
@@ -122,7 +100,6 @@ function zoomChart() {
       .classList.toggle("zoom-color");
     document.getElementById(widgetIdByMonth).classList.toggle("modal");
 
-    upadateTextSize();
     updateChart();
   });
 }
@@ -154,20 +131,34 @@ function sortByMonth(arr) {
 }
 
 function updateChart() {
-  let series = copy(w.series);
-  const general = copy(w.general);
   const filterValue = visApi().getSelectedValues(filterIdToogle);
   const filterViewValueChekbox = visApi().getSelectedValues(
     filterIdAccumulateChekbox
   );
+
+  // Сортировка значений по порядку месяцев (с базы приходит по алфавиту)
+  //   w.xAxis.categories = sortByMonth(w.xAxis.categories);
+
+  // дополнительные отступы в графике при зуммировании графика
+  //   if (document.getElementById(w.general.renderTo).classList.contains("modal")) {
+  //     general.marginTop = 20;
+  //     general.marginLeft = 90;
+  //     w.tooltip.style.fontSize = labelFontSizeZoom;
+  //   } else {
+  //     general.marginTop = 10;
+  //     general.marginLeft = 60;
+  //     w.tooltip.style.fontSize = labelFontSize;
+  //   }
+
+  const general = copy(w.general);
+  let series = copy(w.series);
 
   // // TODO - Разделить индексы серий количества и стоимости
   const indexes = filterValue[0][0] === "Цена" ? [0, 2, 4, 6] : [1, 3, 5, 7];
   let type = filterValue[0][0] === "Цена" ? " руб." : " шт.";
   series = series.filter((elem, index) => indexes.includes(index));
 
-  // Сортировка значений по порядку месяцев (с базы приходит по алфавиту)
-  w.xAxis.categories = sortByMonth(w.xAxis.categories);
+  w = chartColumn_beforeRender(w, type);
 
   if (
     filterViewValueChekbox.length > 0 &&
@@ -183,48 +174,7 @@ function updateChart() {
     });
   }
 
-  // толщина линии графика
-  series.map((elem) => {
-    elem.lineWidth = 5;
-  });
-
-  // дополнительные отступы в графике при зуммировании графика
-  if (document.getElementById(w.general.renderTo).classList.contains("modal")) {
-    general.marginTop = 20;
-    general.marginLeft = 90;
-    w.tooltip.style.fontSize = labelFontSizeZoom;
-  } else {
-    general.marginTop = 10;
-    general.marginLeft = 60;
-    w.tooltip.style.fontSize = labelFontSize;
-  }
-
-  const labelFontSize = "14px";
-  const labelFontSizeZoom = "22px";
-  const titleAxisFontSize = "16px";
-  const titleAxisSizeZoom = "22px";
-
-  const isZoomed = document
-    .getElementById(w.general.renderTo)
-    .classList.contains("modal");
-  widgetId.find(".va-widget-header")[0].style.fontSize = isZoomed
-    ? "26px"
-    : "21px";
-  w.legend.itemStyle.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
-  w.tooltip.style.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
-  w.plotOptions.series.dataLabels.style.fontSize = isZoomed
-    ? labelFontSizeZoom
-    : labelFontSize;
-  w.xAxis.labels.style.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
-  w.xAxis.title.style.fontSize = isZoomed
-    ? titleAxisSizeZoom
-    : titleAxisFontSize;
-  w.yAxis.labels.style.fontSize = isZoomed ? labelFontSizeZoom : labelFontSize;
-  w.yAxis.stackLabels.style.fontSize = isZoomed
-    ? labelFontSizeZoom
-    : labelFontSize;
-
-  const chart = Highcharts.chart({
+  let chart = Highcharts.chart({
     chart: general,
     xAxis: w.xAxis,
     yAxis: w.yAxis,
@@ -250,55 +200,132 @@ function updateChart() {
     },
   });
 
-  let tickAmount =
-    chart.yAxis[0].tickPositions.length > 10
-      ? 10
-      : chart.yAxis[0].tickPositions.length;
-  let maxVal = chart.yAxis[0].max;
+  //   let tickAmount =
+  //     chart.yAxis[0].tickPositions.length > 10
+  //       ? 10
+  //       : chart.yAxis[0].tickPositions.length;
+  //   let maxVal = chart.yAxis[0].max;
 
-  chart.update({
-    yAxis: {
-      tickAmount: tickAmount,
-      labels: {
-        formatter: function formatter() {
-          let tick = this.axis.tickPositions;
-          if (this.value === 0) {
-            return 0;
-          }
-          console.log("tick", tick);
-          let arr = tick.map((item) =>
-            chartAxisAdaptiveLabel(item, this.axis.max).slice(-2)
-          );
-          let fixed = 2;
-          console.log("arr", arr);
-          if (arr.every((elem) => elem.charAt(1) === "0")) {
-            fixed = 1;
-          }
-          if (arr.every((elem) => elem === "00")) {
-            fixed = 0;
-          }
-          return chartAxisAdaptiveLabel(this.value, this.axis.max, fixed);
+  //   chart.update({
+  //     yAxis: {
+  //       tickAmount: tickAmount,
+  //       labels: {
+  //         formatter: function formatter() {
+  //           let tick = this.axis.tickPositions;
+  //           if (this.value === 0) {
+  //             return 0;
+  //           }
+  //           console.log("tick", tick);
+  //           let arr = tick.map((item) =>
+  //             chartAxisAdaptiveLabel(item, this.axis.max).slice(-2)
+  //           );
+  //           let fixed = 2;
+  //           console.log("arr", arr);
+  //           if (arr.every((elem) => elem.charAt(1) === "0")) {
+  //             fixed = 1;
+  //           }
+  //           if (arr.every((elem) => elem === "00")) {
+  //             fixed = 0;
+  //           }
+  //           return chartAxisAdaptiveLabel(this.value, this.axis.max, fixed);
+  //         },
+  //       },
+  //       title: {
+  //         text: chartAxisAdaptiveTitle(maxVal, type),
+  //         align: "high",
+  //         rotation: 0,
+  //         style: {
+  //           fontSize: isZoomed ? "22px" : "16px",
+  //           fontWeight: "normal",
+  //         },
+  //         offset: 0,
+  //         x: isZoomed ? 35 : 25,
+  //         y: isZoomed ? -25 : -15,
+  //       },
+  //     },
+  //   });
+
+  chart = chartColumn_afterRender2(chart, type, w);
+
+  function chartColumn_afterRender2(chart, type, w) {
+    const widgetId = $("#widget-" + w.general.renderTo);
+    const isZoomed = document
+      .getElementById(w.general.renderTo)
+      .classList.contains("modal");
+
+    console.log("isZoomed", isZoomed);
+    const maxVal = chart.yAxis[0].max; // получаем максимальное значение оси Y
+    // let tickAmount =
+    //   chart.yAxis[0].tickPositions.length > 10
+    //     ? 10
+    //     : chart.yAxis[0].tickPositions.length;
+    let tickAmount = 7;
+
+    chart.update({
+      // chart: {
+      //   marginTop: 30,
+      // },
+      // добавляем сверху заголовок единиц измерений
+      yAxis: {
+        tickAmount: tickAmount,
+        title: {
+          text: chartAxisAdaptiveTitle(maxVal, type),
+          align: "high",
+          rotation: 0,
+          // style: {
+          //   fontSize: isZoomed ? "22px" : "16px",
+          //   fontWeight: "normal",
+          // },
+          offset: 0,
+          x: isZoomed ? 25 : 15,
+          y: isZoomed ? -25 : -15,
+        },
+        // форматирование значений для оси измерений
+        labels: {
+          formatter: function formatter() {
+            let tick = this.axis.tickPositions;
+            if (this.value === 0) {
+              return 0;
+            }
+            let arr = tick.map((item) =>
+              chartAxisAdaptiveLabel(item, this.axis.max).slice(-2)
+            );
+            let fixed = 2;
+            if (arr.every((elem) => elem.charAt(1) === "0")) {
+              fixed = 1;
+            }
+            if (arr.every((elem) => elem === "00")) {
+              fixed = 0;
+            }
+            return chartAxisAdaptiveLabel(this.value, this.axis.max, fixed);
+          },
+          x: 20,
         },
       },
-      title: {
-        text: chartAxisAdaptiveTitle(maxVal, type),
-        align: "high",
-        rotation: 0,
-        style: {
-          fontSize: isZoomed ? "22px" : "16px",
-          fontWeight: "normal",
+      plotOptions: {
+        series: {
+          events: {
+            legendItemClick(e) {
+              e.preventDefault(); // отменяет действия мыши на легенде графика
+              return false;
+            },
+          },
         },
-        offset: 0,
-        x: isZoomed ? 35 : 25,
-        y: isZoomed ? -25 : -15,
       },
-    },
-  });
+      tooltip: {
+        formatter: function () {
+          return chartColumn_formatTooltip(this, type);
+        },
+      },
+    });
 
-  // Сделать видимой область графика которая выходит за пределы контейнера с графиком (необходимо для yAxis.title)
-  $("#" + w.general.renderTo).css({ overflow: "visible" });
-  widgetId.find(".highcharts-container").css({ overflow: "visible" });
-  widgetId.find("svg.highcharts-root").attr("overflow", "visible");
+    // Сделать видимой область графика которая выходит за пределы контейнера с графиком (необходимо для yAxis.title)
+    $("#" + w.general.renderTo).css({ overflow: "visible" });
+    widgetId.find(".highcharts-container").css({ overflow: "visible" });
+    widgetId.find("svg.highcharts-root").attr("overflow", "visible");
+
+    return chart;
+  }
 
   removeItems();
   zoomChart();
