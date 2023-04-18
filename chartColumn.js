@@ -100,10 +100,11 @@ function chartColumn_afterRender(chart, type, w) {
     .getElementById(w.general.renderTo)
     .classList.contains("modal");
   const maxVal = chart.yAxis[0].max; // получаем максимальное значение оси Y
-  let tickAmount =
-    chart.yAxis[0].tickPositions.length > 10
-      ? 10
-      : chart.yAxis[0].tickPositions.length;
+  // let tickAmount =
+  //   chart.yAxis[0].tickPositions.length > 10
+  //     ? 10
+  //     : chart.yAxis[0].tickPositions.length;
+  let tickAmount = 7;
 
   chart.update({
     // chart: {
@@ -143,6 +144,7 @@ function chartColumn_afterRender(chart, type, w) {
           }
           return chartAxisAdaptiveLabel(this.value, this.axis.max, fixed);
         },
+        x: -20,
       },
     },
     plotOptions: {
