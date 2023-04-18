@@ -84,7 +84,7 @@ function chartTop_afterRender(chart, type, w) {
     },
     tooltip: {
       formatter: function () {
-        return chartAxisAdaptiveTitle(this.y, type);
+        return convertAxisAdaptive(this.y, this.y, type);
       },
     },
   });
