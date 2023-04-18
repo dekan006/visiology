@@ -38,6 +38,7 @@ function chartTop_afterRender(chart, type) {
   chart.update({
     chart: {
       marginRight: 25,
+      marginBottom: isZoomed ? 80 : 60,
     },
     yAxis: {
       tickAmount: tickAmount,
