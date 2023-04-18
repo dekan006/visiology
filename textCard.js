@@ -1,4 +1,7 @@
 function textCard_updateData(w) {
+  if(!w.data.values[0][0]) {
+    w.data.values[0][0] = 0;
+  }
   // w.style.color = "red";
   // w.style.fontSize = "34px";
   return w;
