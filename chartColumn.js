@@ -55,9 +55,12 @@ function chartColumn_beforeRender(w) {
   w.yAxis.title.style.fontSize = isZoomed
     ? titleAxisSizeZoom
     : titleAxisFontSize;
-  w.yAxis.stackLabels.style.fontSize = isZoomed
-    ? labelFontSizeZoom
-    : labelFontSize;
+
+  if (w.yAxis.stackLabels) {
+    w.yAxis.stackLabels.style.fontSize = isZoomed
+      ? labelFontSizeZoom
+      : labelFontSize;
+  }
 
   // толщина линии графика
   w.series.map((elem) => {
