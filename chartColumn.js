@@ -99,7 +99,6 @@ function chartColumn_afterRender(chart, type, w) {
     .classList.contains("modal");
 
   const maxVal = chart.yAxis[0].max; // получаем максимальное значение оси Y
-  let tickAmount = 7; // На сколько значений разбивать ось значений
 
   chart.update({
     chart: {
@@ -108,7 +107,6 @@ function chartColumn_afterRender(chart, type, w) {
     },
     // добавляем сверху заголовок единиц измерений
     yAxis: {
-      tickAmount: tickAmount,
       title: {
         text: chartAxisAdaptiveTitle(maxVal, type),
         align: "high",
