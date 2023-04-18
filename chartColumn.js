@@ -17,7 +17,7 @@ function chartColumn_cssStyle(w) {
   headerContainer.prepend(zoom);
 }
 
-function chartColumn_beforeRender(w, type) {
+function chartColumn_beforeRender(w) {
   const widgetId = $("#widget-" + w.general.renderTo);
   const labelFontSize = "14px";
   const labelFontSizeZoom = "22px";
@@ -64,16 +64,6 @@ function chartColumn_beforeRender(w, type) {
     elem.lineWidth = 5;
   });
 
-  if (document.getElementById(w.general.renderTo).classList.contains("modal")) {
-    w.general.marginTop = 20;
-    w.general.marginLeft = 90;
-    w.tooltip.style.fontSize = labelFontSizeZoom;
-  } else {
-    w.general.marginTop = 10;
-    w.general.marginLeft = 60;
-    w.tooltip.style.fontSize = labelFontSize;
-  }
-
   w.xAxis.categories = sortByMonth(w.xAxis.categories);
   function sortByMonth(arr) {
     const months = [
@@ -102,16 +92,13 @@ function chartColumn_afterRender(chart, type, w) {
   const isZoomed = document
     .getElementById(w.general.renderTo)
     .classList.contains("modal");
+
   const maxVal = chart.yAxis[0].max; // получаем максимальное значение оси Y
-  // let tickAmount =
-  //   chart.yAxis[0].tickPositions.length > 10
-  //     ? 10
-  //     : chart.yAxis[0].tickPositions.length;
   let tickAmount = 7; // На сколько значений разбивать ось значений
 
   chart.update({
     chart: {
-      marginLeft: isZoomed ? 90 : 65,
+      marginLeft: isZoomed ? 90 : 65, // Отступы графика
       marginTop: isZoomed ? 20 : 10,
     },
     // добавляем сверху заголовок единиц измерений
@@ -121,13 +108,9 @@ function chartColumn_afterRender(chart, type, w) {
         text: chartAxisAdaptiveTitle(maxVal, type),
         align: "high",
         rotation: 0,
-        style: {
-          fontSize: isZoomed ? "22px" : "16px",
-          fontWeight: "normal",
-        },
         textAlign: "left",
         offset: 0,
-        x: isZoomed ? -70 : -50,
+        x: isZoomed ? -70 : -50, // смещение title для выравнивания
         y: isZoomed ? -25 : -20,
       },
       // форматирование значений для оси измерений
