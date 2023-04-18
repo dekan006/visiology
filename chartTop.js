@@ -44,7 +44,7 @@ function chartTop_afterRender(chart, type, w) {
 
   chart.update({
     chart: {
-      marginRight: 25,
+      marginRight: isZoomed ? 40 : 30,
       marginBottom: isZoomed ? 80 : 60,
     },
     yAxis: {
@@ -72,7 +72,7 @@ function chartTop_afterRender(chart, type, w) {
         align: "high",
         rotation: 0,
         offset: 0,
-        x: 10,
+        x: isZoomed ? 25 : 15,
         y: isZoomed ? 40 : 30,
       },
     },
