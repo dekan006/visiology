@@ -125,10 +125,10 @@ function chartColumn_afterRender(chart, type, w) {
           fontSize: isZoomed ? "22px" : "16px",
           fontWeight: "normal",
         },
-        textAlign: 'left',
+        textAlign: "left",
         offset: 0,
         x: isZoomed ? -70 : -50,
-        y: isZoomed ? -20 : -15,
+        y: isZoomed ? -25 : -20,
       },
       // форматирование значений для оси измерений
       labels: {
