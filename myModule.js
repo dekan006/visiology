@@ -1,4 +1,4 @@
-const myModule = {
+const chartColumn = {
   fontFamily: "Roboto",
   labelFontSize: "14px",
   labelFontSizeZoom: "22px",
