@@ -81,6 +81,7 @@ const chartColumn = {
       arr.sort((a, b) => months.indexOf(a) - months.indexOf(b));
       return arr;
     }
+    return w;
   },
   tickAmount: function (w, amount) {
     w.yAxis.tickAmount = amount || 7; //На сколько значений разбивать ось значений
