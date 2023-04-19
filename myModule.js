@@ -64,7 +64,8 @@ const myModule = {
 
     return chart;
   },
-  svgOverflowVisible: function () {
+  svgOverflowVisible: function (w) {
+    const widgetId = $("#widget-" + w.general.renderTo);
     // Сделать видимой область графика которая выходит за пределы контейнера с графиком (необходимо для yAxis.title)
     $("#" + w.general.renderTo).css({ overflow: "visible" });
     widgetId.find(".highcharts-container").css({ overflow: "visible" });
