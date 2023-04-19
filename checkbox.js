@@ -1,11 +1,13 @@
 function checkbox_updateData(w) {
   $("#" + w.general.renderTo).append('<div id="checkbox"></div>');
 
+  let textValue = w.props.title || "Накопительный итог";
+
   $("#checkbox").dxCheckBox({
     value: false,
-    text: w.props.title || "Накопительный итог",
+    text: textValue,
     onValueChanged(e) {
-      let filterValue = e.value === true ? "Накопительный итог" : "";
+      let filterValue = e.value === true ? textValue : "";
       visApi().setFilterSelectedValues(
         w.general.renderTo,
         [[filterValue]],
