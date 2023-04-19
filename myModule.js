@@ -62,11 +62,12 @@ const myModule = {
       },
     });
 
+    return chart;
+  },
+  svgOverflowVisible: function () {
     // Сделать видимой область графика которая выходит за пределы контейнера с графиком (необходимо для yAxis.title)
     $("#" + w.general.renderTo).css({ overflow: "visible" });
     widgetId.find(".highcharts-container").css({ overflow: "visible" });
     widgetId.find("svg.highcharts-root").attr("overflow", "visible");
-
-    return chart;
   },
 };
