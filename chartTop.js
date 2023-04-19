@@ -5,6 +5,7 @@ function chartTop_beforeRender(w, type) {
   const labelFontSizeZoom = "22px";
   const titleFontSize = "16px";
   const titleFontSizeZoom = "22px";
+  
   // Изменение стилей текста
   w.drilldown.activeAxisLabelStyle.fontFamily = "Roboto";
   w.drilldown.activeDataLabelStyle.fontFamily = "Roboto";

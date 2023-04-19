@@ -111,9 +111,9 @@ function chartColumn_afterRender(chart, type, w) {
         text: chartAxisAdaptiveTitle(maxVal, type),
         align: "high",
         rotation: 0,
-        textAlign: "left",
+        textAlign: "center",
         offset: 0,
-        x: isZoomed ? -70 : -50, // смещение title для выравнивания
+        x: -25, // смещение title для выравнивания
         y: isZoomed ? -25 : -20,
       },
       // форматирование значений для оси измерений
