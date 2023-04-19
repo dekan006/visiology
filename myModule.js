@@ -62,7 +62,6 @@ const chartColumn = {
     return w;
   },
   sortByMonth: function (w) {
-    w.xAxis.categories = sortByMonth(w.xAxis.categories);
     function sortByMonth(arr) {
       const months = [
         "январь",
@@ -81,6 +80,7 @@ const chartColumn = {
       arr.sort((a, b) => months.indexOf(a) - months.indexOf(b));
       return arr;
     }
+    w.xAxis.categories = sortByMonth(w.xAxis.categories);
     return w;
   },
   tickAmount: function (w, amount) {
