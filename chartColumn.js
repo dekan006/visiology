@@ -162,3 +162,5 @@ function chartColumn_afterRender(chart, type, w) {
 
   return chart;
 }
+
+function chartColumn_changeFont(){}
