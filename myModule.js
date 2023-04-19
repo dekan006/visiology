@@ -6,6 +6,8 @@ const chartColumn = {
   titleAxisSizeZoom: "22px",
 
   updateFont: function (w) {
+    const widgetId = $("#widget-" + w.general.renderTo);
+
     w.drilldown.activeAxisLabelStyle.fontFamily = this.fontFamily;
     w.drilldown.activeDataLabelStyle.fontFamily = this.fontFamily;
     w.legend.itemStyle.fontFamily = this.fontFamily;
