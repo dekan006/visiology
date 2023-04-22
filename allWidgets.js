@@ -1,3 +1,78 @@
+const lib = {
+  convertAxisAdaptive: function (value, max, type = "", fixed = 2) {
+    if (max < 1000) {
+      return this.addSpaceFixed(value, fixed) + " " + type;
+    }
+    if (max < 1000000) {
+      return (
+        this.addSpaceFixed(Math.round(value / 10) / 100, fixed) + " тыс " + type
+      );
+    }
+    if (max < 1000000000) {
+      return (
+        this.addSpaceFixed(Math.round(value / 10000) / 100, fixed) +
+        " млн " +
+        type
+      );
+    }
+    if (max < 1000000000000) {
+      return (
+        this.addSpaceFixed(Math.round(value / 10000000) / 100, fixed) +
+        " млрд " +
+        type
+      );
+    }
+    return (
+      this.addSpaceFixed(Math.round(value / 10000000000) / 100, fixed) +
+      " трлн " +
+      type
+    );
+  },
+  addSpaceFixed: function (value, fixed) {
+    return value
+      .toFixed(fixed)
+      .replace(/\./, ",")
+      .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  },
+  addCss: function (css) {
+    const style = document.createElement("style");
+    style.type = "text/css";
+    style.textContent = css;
+    document.head.appendChild(style);
+  },
+  copy: function (aObject) {
+    const bObject = Array.isArray(aObject) ? [] : {};
+
+    let value;
+    for (const key in aObject) {
+      value = aObject[key];
+      bObject[key] = typeof value === "object" ? this.copy(value) : value;
+    }
+
+    return bObject;
+  },
+  chartAxisAdaptiveLabel: function (value, max, fixed = 2) {
+    if (max < 1000) {
+      return this.addSpaceFixed(value, fixed);
+    }
+    if (max < 1000000) {
+      return this.addSpaceFixed(Math.round(value / 10) / 100, fixed);
+    }
+    if (max < 1000000000) {
+      return this.addSpaceFixed(Math.round(value / 10000) / 100, fixed);
+    }
+    if (max < 1000000000000) {
+      return this.addSpaceFixed(Math.round(value / 10000000) / 100, fixed);
+    }
+    return this.addSpaceFixed(Math.round(value / 10000000000) / 100, fixed);
+  },
+  chartAxisAdaptiveTitle: function (max, type) {
+    const units = [" ", " тыс", " млн", " млрд", " трлн"];
+    const index = Math.floor(Math.log10(max) / 3);
+    return units[index] + type;
+  },
+};
+
 function convertAxisAdaptive(value, max, type = "", fixed = 2) {
   if (max < 1000) {
     return addSpaceFixed(value, fixed) + " " + type;

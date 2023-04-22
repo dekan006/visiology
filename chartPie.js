@@ -1,14 +1,85 @@
-function chartPie_formatTooltip(thisData, type) {
-  return (
-    // thisData.key + ": " + convertAxisAdaptive(thisData.y, thisData.y, type)
-    thisData.key +
-    ": " +
-    convertAxisAdaptive(thisData.y, thisData.y, type) +
-    "(" +
-    addSpaceFixed(thisData.percentage, 2) +
-    "%)"
-  );
-}
+const chartPie = {
+  fontFamily: "Roboto",
+  updateFont: function (w) {
+    w.plotOptions.pie.dataLabels.style.fontFamily = this.fontFamily;
+    w.legend.itemStyle.fontFamily = this.fontFamily;
+    w.tooltip.style.fontFamily = this.fontFamily;
+    w.plotOptions.pie.dataLabels.style = {
+      align: "center",
+      color: "white", // Цвет цифрового значения
+      fontFamily: this.fontFamily,
+      fontSize: "16px",
+      fontWeight: "bold",
+      fontStyle: "normal",
+      textOverflow: "none",
+    };
+
+    return w;
+  },
+  updateChart: function (chart, type) {
+    chart.update({
+      chart: {},
+      plotOptions: {
+        series: {
+          events: {
+            legendItemClick(e) {
+              e.preventDefault();
+              return false;
+            },
+          },
+        },
+        pie: {
+          dataLabels: {
+            enabled: true,
+            style: {
+              textOutline: "none", // '1px white'
+            },
+          },
+        },
+      },
+      tooltip: {
+        formatter: function () {
+          return this.formatTooltip(this, type);
+        },
+      },
+    });
+
+    return chart;
+  },
+  sortByBudget: function (arr) {
+    const level = [
+      "Федеральный уровень",
+      "Уровень субъекта РФ",
+      "Муниципальный уровень",
+      "Иные",
+    ];
+    arr.sort((a, b) => level.indexOf(a.name) - level.indexOf(b.name));
+    return arr;
+  },
+  formatTooltip: function (thisData, type) {
+    return (
+      // thisData.key + ": " + convertAxisAdaptive(thisData.y, thisData.y, type)
+      thisData.key +
+      ": " +
+      convertAxisAdaptive(thisData.y, thisData.y, type) +
+      "(" +
+      addSpaceFixed(thisData.percentage, 2) +
+      "%)"
+    );
+  },
+  addIconZoom: function (w) {
+    const wigetId = $("#widget-" + w.general.renderTo);
+    const headerContainer = wigetId.find(".va-widget-header-container");
+
+    const zoom = document.createElement("img");
+    zoom.className = "chart-zoom-" + w.general.renderTo;
+    zoom.style.cursor = "pointer";
+    zoom.style.paddingLeft = "10px";
+    zoom.src = "https://img.icons8.com/ios/25/null/search--v1.png";
+
+    headerContainer.prepend(zoom);
+  },
+};
 
 function chartPie_cssStyle(w) {
   const wigetId = $("#widget-" + w.general.renderTo);
