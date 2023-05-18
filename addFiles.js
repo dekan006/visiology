@@ -21,6 +21,7 @@ const urlArr = [
   "https://dekan006.github.io/visiology/filterFoundationSingleSupplier.js",
   "https://dekan006.github.io/visiology/checkbox.js",
   "https://dekan006.github.io/visiology/sankey.js",
+  "https://dekan006.github.io/visiology/exporting.js",
 ];
 
 urlArr.forEach((url) => {
