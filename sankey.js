@@ -1,5 +1,5 @@
 /*
- Highcharts JS v11.0.1 (2023-05-08)
+ Highcharts JS v10.2.0 (2022-07-05)
 
  Sankey diagram module
 
@@ -7,699 +7,691 @@
 
  License: www.highcharts.com/license
 */
-"use strict";
-(function (b) {
+(function (c) {
   "object" === typeof module && module.exports
-    ? ((b["default"] = b), (module.exports = b))
+    ? ((c["default"] = c), (module.exports = c))
     : "function" === typeof define && define.amd
-    ? define("highcharts/modules/sankey", ["highcharts"], function (t) {
-        b(t);
-        b.Highcharts = t;
-        return b;
+    ? define("highcharts/modules/sankey", ["highcharts"], function (q) {
+        c(q);
+        c.Highcharts = q;
+        return c;
       })
-    : b("undefined" !== typeof Highcharts ? Highcharts : void 0);
-})(function (b) {
-  function t(b, h, l, e) {
-    b.hasOwnProperty(h) ||
-      ((b[h] = e.apply(null, l)),
+    : c("undefined" !== typeof Highcharts ? Highcharts : void 0);
+})(function (c) {
+  function q(c, f, m, k) {
+    c.hasOwnProperty(f) ||
+      ((c[f] = k.apply(null, m)),
       "function" === typeof CustomEvent &&
         window.dispatchEvent(
           new CustomEvent("HighchartsModuleLoaded", {
-            detail: { path: h, module: b[h] },
+            detail: { path: f, module: c[f] },
           })
         ));
   }
-  b = b ? b._modules : {};
-  t(
-    b,
+  c = c ? c._modules : {};
+  q(
+    c,
     "Series/NodesComposition.js",
-    [b["Core/Series/SeriesRegistry.js"], b["Core/Utilities.js"]],
-    function (b, h) {
-      const {
-          series: {
-            prototype: l,
-            prototype: {
-              pointClass: { prototype: e },
-            },
-          },
-        } = b,
-        { defined: z, extend: w, find: g, merge: n, pick: k } = h;
-      var a;
+    [c["Core/Series/SeriesRegistry.js"], c["Core/Utilities.js"]],
+    function (c, f) {
+      c = c.series;
+      var m = c.prototype,
+        k = c.prototype.pointClass.prototype,
+        w = f.defined,
+        z = f.extend,
+        g = f.find,
+        d = f.merge,
+        n = f.pick,
+        a;
       (function (a) {
-        function c() {
+        function e() {
           this.data = [].concat(this.points || [], this.nodes);
-          return l.destroy.apply(this, arguments);
+          return m.destroy.apply(this, arguments);
         }
-        function b() {
+        function c() {
           this.nodes &&
-            (this.nodes.forEach((a) => {
+            (this.nodes.forEach(function (a) {
               a.destroy();
             }),
             (this.nodes.length = 0));
-          l.setData.apply(this, arguments);
+          m.setData.apply(this, arguments);
         }
-        function A(a) {
-          const c = arguments,
-            f = this.isNode
+        function v(a) {
+          var d = arguments,
+            h = this.isNode
               ? this.linksTo.concat(this.linksFrom)
               : [this.fromNode, this.toNode];
           "select" !== a &&
-            f.forEach((d) => {
-              d &&
-                d.series &&
-                (e.setState.apply(d, c),
-                d.isNode ||
-                  (d.fromNode.graphic && e.setState.apply(d.fromNode, c),
-                  d.toNode &&
-                    d.toNode.graphic &&
-                    e.setState.apply(d.toNode, c)));
+            h.forEach(function (b) {
+              b &&
+                b.series &&
+                (k.setState.apply(b, d),
+                b.isNode ||
+                  (b.fromNode.graphic && k.setState.apply(b.fromNode, d),
+                  b.toNode &&
+                    b.toNode.graphic &&
+                    k.setState.apply(b.toNode, d)));
             });
-          e.setState.apply(this, c);
+          k.setState.apply(this, d);
         }
-        function p(a, c, f, d) {
-          const m = this.series.options.nodes,
-            r = this.series.options.data,
-            y = (r && r.length) || 0,
-            g = r && r[this.index];
-          e.update.call(this, a, this.isNode ? !1 : c, f, d);
+        function t(a, e, h, b) {
+          var l = this,
+            A = this.series.options.nodes,
+            y = this.series.options.data,
+            c = (y && y.length) || 0,
+            r = y && y[this.index];
+          k.update.call(this, a, this.isNode ? !1 : e, h, b);
           this.isNode &&
-            ((a = (m || []).reduce(
-              (d, m, a) => (this.id === m.id ? a : d),
-              -1
-            )),
-            (d = n((m && m[a]) || {}, (r && r[this.index]) || {})),
-            r && (g ? (r[this.index] = g) : (r.length = y)),
-            m
+            ((a = (A || []).reduce(function (b, a, d) {
+              return l.id === a.id ? d : b;
+            }, -1)),
+            (b = d((A && A[a]) || {}, (y && y[this.index]) || {})),
+            y && (r ? (y[this.index] = r) : (y.length = c)),
+            A
               ? 0 <= a
-                ? (m[a] = d)
-                : m.push(d)
-              : (this.series.options.nodes = [d]),
-            k(c, !0) && this.series.chart.redraw(f));
+                ? (A[a] = b)
+                : A.push(b)
+              : (this.series.options.nodes = [b]),
+            n(e, !0) && this.series.chart.redraw(h));
         }
-        const v = [];
-        a.compose = function (a, g) {
-          h.pushUnique(v, a) &&
-            ((a = a.prototype),
-            (a.setNodeState = A),
-            (a.setState = A),
-            (a.update = p));
-          h.pushUnique(v, g) &&
-            ((a = g.prototype), (a.destroy = c), (a.setData = b));
-          return g;
+        var p = [];
+        a.compose = function (a, d) {
+          -1 === p.indexOf(a) &&
+            (p.push(a),
+            (a = a.prototype),
+            (a.setNodeState = v),
+            (a.setState = v),
+            (a.update = t));
+          -1 === p.indexOf(d) &&
+            (p.push(d), (a = d.prototype), (a.destroy = e), (a.setData = c));
+          return d;
         };
         a.createNode = function (a) {
-          const c = this.pointClass;
-          var f = (d, a) => g(d, (d) => d.id === a);
-          let d = f(this.nodes, a);
-          if (!d) {
-            f = this.options.nodes && f(this.options.nodes, a);
-            const m = new c().init(
+          var d = this.pointClass,
+            h = function (b, a) {
+              return g(b, function (b) {
+                return b.id === a;
+              });
+            },
+            b = h(this.nodes, a);
+          if (!b) {
+            h = this.options.nodes && h(this.options.nodes, a);
+            var l = new d().init(
               this,
-              w({ className: "highcharts-node", isNode: !0, id: a, y: 1 }, f)
+              z({ className: "highcharts-node", isNode: !0, id: a, y: 1 }, h)
             );
-            m.linksTo = [];
-            m.linksFrom = [];
-            m.getSum = function () {
-              let d = 0,
+            l.linksTo = [];
+            l.linksFrom = [];
+            l.getSum = function () {
+              var b = 0,
                 a = 0;
-              m.linksTo.forEach((a) => {
-                d += a.weight || 0;
+              l.linksTo.forEach(function (a) {
+                b += a.weight || 0;
               });
-              m.linksFrom.forEach((d) => {
-                a += d.weight || 0;
+              l.linksFrom.forEach(function (b) {
+                a += b.weight || 0;
               });
-              return Math.max(d, a);
+              return Math.max(b, a);
             };
-            m.offset = function (d, a) {
-              let f = 0;
-              for (let c = 0; c < m[a].length; c++) {
-                if (m[a][c] === d) return f;
-                f += m[a][c].weight;
+            l.offset = function (b, a) {
+              for (var d = 0, h = 0; h < l[a].length; h++) {
+                if (l[a][h] === b) return d;
+                d += l[a][h].weight;
               }
             };
-            m.hasShape = function () {
-              let d = 0;
-              m.linksTo.forEach((a) => {
-                a.outgoing && d++;
+            l.hasShape = function () {
+              var b = 0;
+              l.linksTo.forEach(function (a) {
+                a.outgoing && b++;
               });
-              return !m.linksTo.length || d !== m.linksTo.length;
+              return !l.linksTo.length || b !== l.linksTo.length;
             };
-            m.index = this.nodes.push(m) - 1;
-            d = m;
+            l.index = this.nodes.push(l) - 1;
+            b = l;
           }
-          d.formatPrefix = "node";
-          d.name = d.name || d.options.id || "";
-          d.mass = k(
-            d.options.mass,
-            d.options.marker && d.options.marker.radius,
+          b.formatPrefix = "node";
+          b.name = b.name || b.options.id || "";
+          b.mass = n(
+            b.options.mass,
+            b.options.marker && b.options.marker.radius,
             this.options.marker && this.options.marker.radius,
             4
           );
-          return d;
+          return b;
         };
-        a.destroy = c;
+        a.destroy = e;
         a.generatePoints = function () {
-          const a = this.chart,
-            c = {};
-          l.generatePoints.call(this);
+          var a = this,
+            d = this.chart,
+            h = {};
+          m.generatePoints.call(this);
           this.nodes || (this.nodes = []);
           this.colorCounter = 0;
-          this.nodes.forEach((a) => {
-            a.linksFrom.length = 0;
-            a.linksTo.length = 0;
-            a.level = a.options.level;
+          this.nodes.forEach(function (b) {
+            b.linksFrom.length = 0;
+            b.linksTo.length = 0;
+            b.level = b.options.level;
           });
-          this.points.forEach((f) => {
-            z(f.from) &&
-              (c[f.from] || (c[f.from] = this.createNode(f.from)),
-              c[f.from].linksFrom.push(f),
-              (f.fromNode = c[f.from]),
-              a.styledMode
-                ? (f.colorIndex = k(f.options.colorIndex, c[f.from].colorIndex))
-                : (f.color = f.options.color || c[f.from].color));
-            z(f.to) &&
-              (c[f.to] || (c[f.to] = this.createNode(f.to)),
-              c[f.to].linksTo.push(f),
-              (f.toNode = c[f.to]));
-            f.name = f.name || f.id;
+          this.points.forEach(function (b) {
+            w(b.from) &&
+              (h[b.from] || (h[b.from] = a.createNode(b.from)),
+              h[b.from].linksFrom.push(b),
+              (b.fromNode = h[b.from]),
+              d.styledMode
+                ? (b.colorIndex = n(b.options.colorIndex, h[b.from].colorIndex))
+                : (b.color = b.options.color || h[b.from].color));
+            w(b.to) &&
+              (h[b.to] || (h[b.to] = a.createNode(b.to)),
+              h[b.to].linksTo.push(b),
+              (b.toNode = h[b.to]));
+            b.name = b.name || b.id;
           }, this);
-          this.nodeLookup = c;
+          this.nodeLookup = h;
         };
-        a.setNodeState = A;
-        a.updateNode = p;
+        a.setNodeState = v;
+        a.updateNode = t;
       })(a || (a = {}));
       return a;
     }
   );
-  t(
-    b,
+  q(
+    c,
     "Series/Sankey/SankeyPoint.js",
     [
-      b["Core/Series/Point.js"],
-      b["Core/Series/SeriesRegistry.js"],
-      b["Core/Utilities.js"],
+      c["Core/Series/Point.js"],
+      c["Core/Series/SeriesRegistry.js"],
+      c["Core/Utilities.js"],
     ],
-    function (b, h, l) {
-      ({
-        seriesTypes: { column: h },
-      } = h);
-      const { defined: e } = l;
-      class z extends h.prototype.pointClass {
-        constructor() {
-          super(...arguments);
-          this.toNode =
-            this.series =
-            this.options =
-            this.nodeY =
-            this.nodeX =
-            this.mass =
-            this.linksTo =
-            this.linksFrom =
-            this.linkBase =
-            this.level =
-            this.fromNode =
-            this.className =
-              void 0;
+    function (c, f, m) {
+      var k =
+          (this && this.__extends) ||
+          (function () {
+            var c = function (g, d) {
+              c =
+                Object.setPrototypeOf ||
+                ({ __proto__: [] } instanceof Array &&
+                  function (d, a) {
+                    d.__proto__ = a;
+                  }) ||
+                function (d, a) {
+                  for (var e in a) a.hasOwnProperty(e) && (d[e] = a[e]);
+                };
+              return c(g, d);
+            };
+            return function (g, d) {
+              function n() {
+                this.constructor = g;
+              }
+              c(g, d);
+              g.prototype =
+                null === d
+                  ? Object.create(d)
+                  : ((n.prototype = d.prototype), new n());
+            };
+          })(),
+        w = m.defined;
+      return (function (f) {
+        function g() {
+          var d = (null !== f && f.apply(this, arguments)) || this;
+          d.className = void 0;
+          d.fromNode = void 0;
+          d.level = void 0;
+          d.linkBase = void 0;
+          d.linksFrom = void 0;
+          d.linksTo = void 0;
+          d.mass = void 0;
+          d.nodeX = void 0;
+          d.nodeY = void 0;
+          d.options = void 0;
+          d.series = void 0;
+          d.toNode = void 0;
+          return d;
         }
-        applyOptions(h, g) {
-          b.prototype.applyOptions.call(this, h, g);
-          e(this.options.level) &&
+        k(g, f);
+        g.prototype.applyOptions = function (d, n) {
+          c.prototype.applyOptions.call(this, d, n);
+          w(this.options.level) &&
             (this.options.column = this.column = this.options.level);
           return this;
-        }
-        getClassName() {
+        };
+        g.prototype.getClassName = function () {
           return (
             (this.isNode ? "highcharts-node " : "highcharts-link ") +
-            b.prototype.getClassName.call(this)
+            c.prototype.getClassName.call(this)
           );
-        }
-        getFromNode() {
-          let b = -1,
-            g;
-          for (let n = 0; n < this.linksTo.length; n++) {
-            const k = this.linksTo[n];
-            k.fromNode.column > b &&
-              k.fromNode !== this &&
-              ((g = k.fromNode), (b = g.column));
+        };
+        g.prototype.getFromNode = function () {
+          for (var d = -1, c, a = 0; a < this.linksTo.length; a++) {
+            var e = this.linksTo[a];
+            e.fromNode.column > d &&
+              e.fromNode !== this &&
+              ((c = e.fromNode), (d = c.column));
           }
-          return { fromNode: g, fromColumn: b };
-        }
-        setNodeColumn() {
-          e(this.options.column) ||
+          return { fromNode: c, fromColumn: d };
+        };
+        g.prototype.setNodeColumn = function () {
+          w(this.options.column) ||
             (this.column =
               0 === this.linksTo.length
                 ? 0
                 : this.getFromNode().fromColumn + 1);
-        }
-        isValid() {
-          return this.isNode || "number" === typeof this.weight;
-        }
-      }
-      return z;
-    }
-  );
-  t(b, "Series/Sankey/SankeySeriesDefaults.js", [], function () {
-    "";
-    return {
-      borderWidth: 0,
-      colorByPoint: !0,
-      curveFactor: 0.33,
-      dataLabels: {
-        enabled: !0,
-        backgroundColor: "none",
-        crop: !1,
-        nodeFormat: void 0,
-        nodeFormatter: function () {
-          return this.point.name;
-        },
-        format: void 0,
-        formatter: function () {},
-        inside: !0,
-      },
-      inactiveOtherPoints: !0,
-      linkOpacity: 0.5,
-      opacity: 1,
-      minLinkWidth: 0,
-      nodeWidth: 20,
-      nodePadding: 10,
-      showInLegend: !1,
-      states: {
-        hover: { linkOpacity: 1, opacity: 1 },
-        inactive: {
-          linkOpacity: 0.1,
-          opacity: 0.1,
-          animation: { duration: 50 },
-        },
-      },
-      tooltip: {
-        followPointer: !0,
-        headerFormat:
-          '<span style="font-size: 0.8em">{series.name}</span><br/>',
-        pointFormat:
-          "{point.fromNode.name} \u2192 {point.toNode.name}: <b>{point.weight}</b><br/>",
-        nodeFormat: "{point.name}: <b>{point.sum}</b><br/>",
-      },
-    };
-  });
-  t(
-    b,
-    "Series/Sankey/SankeyColumnComposition.js",
-    [b["Core/Utilities.js"]],
-    function (b) {
-      const { defined: h, relativeLength: l } = b;
-      var e;
-      (function (b) {
-        b.compose = function (b, n) {
-          b.sankeyColumn = new e(b, n);
-          return b;
         };
-        class e {
-          constructor(b, n) {
-            this.points = b;
-            this.series = n;
-          }
-          getTranslationFactor(b) {
-            const g = this.points,
-              k = g.slice(),
-              a = b.options.minLinkWidth || 0;
-            let c = 0,
-              q,
-              e =
-                (b.chart.plotSizeY || 0) -
-                (b.options.borderWidth || 0) -
-                (g.length - 1) * b.nodePadding;
-            for (; g.length; ) {
-              c = e / g.sankeyColumn.sum();
-              b = !1;
-              for (q = g.length; q--; )
-                g[q].getSum() * c < a && (g.splice(q, 1), (e -= a), (b = !0));
-              if (!b) break;
-            }
-            g.length = 0;
-            k.forEach((a) => {
-              g.push(a);
-            });
-            return c;
-          }
-          top(b) {
-            const g = this.series,
-              k = g.nodePadding,
-              a = this.points.reduce(function (a, q) {
-                0 < a && (a += k);
-                q = Math.max(q.getSum() * b, g.options.minLinkWidth || 0);
-                return a + q;
-              }, 0);
-            return ((g.chart.plotSizeY || 0) - a) / 2;
-          }
-          left(b) {
-            const g = this.series,
-              k = g.chart,
-              a = g.options.equalNodes,
-              c = k.inverted ? k.plotHeight : k.plotWidth,
-              q = g.nodePadding,
-              e = this.points.reduce(function (k, e) {
-                0 < k && (k += q);
-                e = a
-                  ? c / e.series.nodes.length - q
-                  : Math.max(e.getSum() * b, g.options.minLinkWidth || 0);
-                return k + e;
-              }, 0);
-            return ((k.plotSizeX || 0) - Math.round(e)) / 2;
-          }
-          sum() {
-            return this.points.reduce(function (b, e) {
-              return b + e.getSum();
-            }, 0);
-          }
-          offset(b, e) {
-            const g = this.points,
-              a = this.series,
-              c = a.nodePadding;
-            let q = 0;
-            if (a.is("organization") && b.hangsFrom)
-              return { absoluteTop: b.hangsFrom.nodeY };
-            for (let k = 0; k < g.length; k++) {
-              var x = g[k].getSum();
-              const p = Math.max(x * e, a.options.minLinkWidth || 0),
-                v =
-                  b.options[
-                    a.chart.inverted ? "offsetHorizontal" : "offsetVertical"
-                  ],
-                u = b.options.offset || 0;
-              x = x ? p + c : 0;
-              if (g[k] === b)
-                return { relativeTop: q + (h(v) ? l(v, p) : l(u, x)) };
-              q += x;
-            }
-          }
-        }
-        b.SankeyColumnAdditions = e;
-      })(e || (e = {}));
-      return e;
+        g.prototype.isValid = function () {
+          return this.isNode || "number" === typeof this.weight;
+        };
+        return g;
+      })(f.seriesTypes.column.prototype.pointClass);
     }
   );
-  t(
-    b,
+  q(
+    c,
+    "Series/Sankey/SankeyColumnComposition.js",
+    [c["Core/Utilities.js"]],
+    function (c) {
+      var f = c.defined,
+        m = c.relativeLength,
+        k;
+      (function (c) {
+        c.compose = function (c, d) {
+          c.sankeyColumn = new k(c, d);
+          return c;
+        };
+        var k = (function () {
+          function c(d, c) {
+            this.points = d;
+            this.series = c;
+          }
+          c.prototype.getTranslationFactor = function (d) {
+            for (
+              var c = this.points,
+                a = c.slice(),
+                e = d.options.minLinkWidth || 0,
+                g = 0,
+                u,
+                f =
+                  (d.chart.plotSizeY || 0) -
+                  (d.options.borderWidth || 0) -
+                  (c.length - 1) * d.nodePadding;
+              c.length;
+
+            ) {
+              g = f / c.sankeyColumn.sum();
+              d = !1;
+              for (u = c.length; u--; )
+                c[u].getSum() * g < e && (c.splice(u, 1), (f -= e), (d = !0));
+              if (!d) break;
+            }
+            c.length = 0;
+            a.forEach(function (a) {
+              c.push(a);
+            });
+            return g;
+          };
+          c.prototype.top = function (d) {
+            var c = this.series,
+              a = c.nodePadding,
+              e = this.points.reduce(function (e, g) {
+                0 < e && (e += a);
+                g = Math.max(g.getSum() * d, c.options.minLinkWidth || 0);
+                return e + g;
+              }, 0);
+            return ((c.chart.plotSizeY || 0) - e) / 2;
+          };
+          c.prototype.left = function (d) {
+            var c = this.series,
+              a = c.chart,
+              e = c.options.equalNodes,
+              g = a.inverted ? a.plotHeight : a.plotWidth,
+              f = c.nodePadding,
+              v = this.points.reduce(function (a, p) {
+                0 < a && (a += f);
+                p = e
+                  ? g / p.series.nodes.length - f
+                  : Math.max(p.getSum() * d, c.options.minLinkWidth || 0);
+                return a + p;
+              }, 0);
+            return ((a.plotSizeX || 0) - Math.round(v)) / 2;
+          };
+          c.prototype.sum = function () {
+            return this.points.reduce(function (c, g) {
+              return c + g.getSum();
+            }, 0);
+          };
+          c.prototype.offset = function (c, g) {
+            var a = this.points,
+              d = this.series,
+              k = d.nodePadding,
+              u = 0;
+            if (d.is("organization") && c.hangsFrom)
+              return { absoluteTop: c.hangsFrom.nodeY };
+            for (var v = 0; v < a.length; v++) {
+              var t = a[v].getSum();
+              var p = Math.max(t * g, d.options.minLinkWidth || 0),
+                r =
+                  c.options[
+                    d.chart.inverted ? "offsetHorizontal" : "offsetVertical"
+                  ],
+                x = c.options.offset || 0;
+              t = t ? p + k : 0;
+              if (a[v] === c)
+                return { relativeTop: u + (f(r) ? m(r, p) : m(x, t)) };
+              u += t;
+            }
+          };
+          return c;
+        })();
+        c.SankeyColumnAdditions = k;
+      })(k || (k = {}));
+      return k;
+    }
+  );
+  q(
+    c,
     "Series/TreeUtilities.js",
-    [b["Core/Color/Color.js"], b["Core/Utilities.js"]],
-    function (b, h) {
-      function l(a, b) {
-        var c = b.before;
-        const g = b.idRoot,
-          h = b.mapIdToNode[g],
-          p = b.points[a.i],
-          v = (p && p.options) || {},
-          u = [];
-        let n = 0;
-        a.levelDynamic = a.level - (!1 !== b.levelIsConstant ? 0 : h.level);
-        a.name = k(p && p.name, "");
-        a.visible = g === a.id || !0 === b.visible;
-        "function" === typeof c && (a = c(a, b));
-        a.children.forEach((c, d) => {
-          const m = e({}, b);
-          e(m, { index: d, siblings: a.children.length, visible: a.visible });
-          c = l(c, m);
-          u.push(c);
-          c.visible && (n += c.val);
+    [c["Core/Color/Color.js"], c["Core/Utilities.js"]],
+    function (c, f) {
+      function m(a, c) {
+        var d = c.before,
+          e = c.idRoot,
+          g = c.mapIdToNode[e],
+          f = c.points[a.i],
+          p = (f && f.options) || {},
+          r = [],
+          x = 0;
+        a.levelDynamic = a.level - (!1 !== c.levelIsConstant ? 0 : g.level);
+        a.name = n(f && f.name, "");
+        a.visible = e === a.id || !0 === c.visible;
+        "function" === typeof d && (a = d(a, c));
+        a.children.forEach(function (d, b) {
+          var l = k({}, c);
+          k(l, { index: b, siblings: a.children.length, visible: a.visible });
+          d = m(d, l);
+          r.push(d);
+          d.visible && (x += d.val);
         });
-        c = k(v.value, n);
-        a.visible = 0 <= c && (0 < n || a.visible);
-        a.children = u;
-        a.childrenTotal = n;
-        a.isLeaf = a.visible && !n;
-        a.val = c;
+        d = n(p.value, x);
+        a.visible = 0 <= d && (0 < x || a.visible);
+        a.children = r;
+        a.childrenTotal = x;
+        a.isLeaf = a.visible && !x;
+        a.val = d;
         return a;
       }
-      const {
-        extend: e,
-        isArray: t,
-        isNumber: w,
-        isObject: g,
-        merge: n,
-        pick: k,
-      } = h;
+      var k = f.extend,
+        w = f.isArray,
+        q = f.isNumber,
+        g = f.isObject,
+        d = f.merge,
+        n = f.pick;
       return {
-        getColor: function (a, c) {
-          const g = c.index;
-          var e = c.mapOptionsToLevel;
-          const h = c.parentColor,
-            n = c.parentColorIndex,
-            v = c.series;
-          var u = c.colors;
-          const l = c.siblings;
-          var f = v.points,
-            d = v.chart.options.chart;
-          let m;
-          var r;
-          let y;
+        getColor: function (a, d) {
+          var g = d.index,
+            e = d.mapOptionsToLevel,
+            f = d.parentColor,
+            k = d.parentColorIndex,
+            p = d.series,
+            r = d.colors,
+            x = d.siblings,
+            h = p.points,
+            b = p.chart.options.chart,
+            l;
           if (a) {
-            f = f[a.i];
+            h = h[a.i];
             a = e[a.level] || {};
-            if ((e = f && a.colorByPoint)) {
-              m = f.index % (u ? u.length : d.colorCount);
-              var B = u && u[m];
+            if ((e = h && a.colorByPoint)) {
+              var A = h.index % (r ? r.length : b.colorCount);
+              var y = r && r[A];
             }
-            if (!v.chart.styledMode) {
-              u = f && f.options.color;
-              d = a && a.color;
-              if ((r = h))
-                r =
-                  (r = a && a.colorVariation) &&
-                  "brightness" === r.key &&
+            if (!p.chart.styledMode) {
+              r = h && h.options.color;
+              b = a && a.color;
+              if ((l = f))
+                l =
+                  (l = a && a.colorVariation) &&
+                  "brightness" === l.key &&
                   g &&
-                  l
-                    ? b
-                        .parse(h)
-                        .brighten((g / l) * r.to)
+                  x
+                    ? c
+                        .parse(f)
+                        .brighten((g / x) * l.to)
                         .get()
-                    : h;
-              r = k(u, d, B, r, v.color);
+                    : f;
+              l = n(r, b, y, l, p.color);
             }
-            y = k(
-              f && f.options.colorIndex,
+            var J = n(
+              h && h.options.colorIndex,
               a && a.colorIndex,
-              m,
-              n,
-              c.colorIndex
+              A,
+              k,
+              d.colorIndex
             );
           }
-          return { color: r, colorIndex: y };
+          return { color: l, colorIndex: J };
         },
         getLevelOptions: function (a) {
-          let b = {},
-            e,
-            h,
-            l;
+          var c = null;
           if (g(a)) {
-            l = w(a.from) ? a.from : 1;
-            var p = a.levels;
-            h = {};
-            e = g(a.defaults) ? a.defaults : {};
-            t(p) &&
-              (h = p.reduce((a, b) => {
-                let c, f;
-                g(b) &&
-                  w(b.level) &&
-                  ((f = n({}, b)),
-                  (c = k(f.levelIsConstant, e.levelIsConstant)),
-                  delete f.levelIsConstant,
-                  delete f.level,
-                  (b = b.level + (c ? 0 : l - 1)),
-                  g(a[b]) ? n(!0, a[b], f) : (a[b] = f));
+            c = {};
+            var f = q(a.from) ? a.from : 1;
+            var k = a.levels;
+            var m = {};
+            var t = g(a.defaults) ? a.defaults : {};
+            w(k) &&
+              (m = k.reduce(function (a, c) {
+                if (g(c) && q(c.level)) {
+                  var e = d({}, c);
+                  var h = n(e.levelIsConstant, t.levelIsConstant);
+                  delete e.levelIsConstant;
+                  delete e.level;
+                  c = c.level + (h ? 0 : f - 1);
+                  g(a[c]) ? d(!0, a[c], e) : (a[c] = e);
+                }
                 return a;
               }, {}));
-            p = w(a.to) ? a.to : 1;
-            for (a = 0; a <= p; a++) b[a] = n({}, e, g(h[a]) ? h[a] : {});
+            k = q(a.to) ? a.to : 1;
+            for (a = 0; a <= k; a++) c[a] = d({}, t, g(m[a]) ? m[a] : {});
           }
-          return b;
+          return c;
         },
-        setTreeValues: l,
+        setTreeValues: m,
         updateRootId: function (a) {
           if (g(a)) {
-            var b = g(a.options) ? a.options : {};
-            b = k(a.rootNode, b.rootId, "");
-            g(a.userOptions) && (a.userOptions.rootId = b);
-            a.rootNode = b;
+            var c = g(a.options) ? a.options : {};
+            c = n(a.rootNode, c.rootId, "");
+            g(a.userOptions) && (a.userOptions.rootId = c);
+            a.rootNode = c;
           }
-          return b;
+          return c;
         },
       };
     }
   );
-  t(
-    b,
+  q(
+    c,
     "Series/Sankey/SankeySeries.js",
     [
-      b["Core/Color/Color.js"],
-      b["Core/Globals.js"],
-      b["Series/NodesComposition.js"],
-      b["Series/Sankey/SankeyPoint.js"],
-      b["Series/Sankey/SankeySeriesDefaults.js"],
-      b["Core/Series/SeriesRegistry.js"],
-      b["Series/Sankey/SankeyColumnComposition.js"],
-      b["Series/TreeUtilities.js"],
-      b["Core/Utilities.js"],
+      c["Core/Color/Color.js"],
+      c["Core/Globals.js"],
+      c["Series/NodesComposition.js"],
+      c["Series/Sankey/SankeyPoint.js"],
+      c["Core/Series/SeriesRegistry.js"],
+      c["Series/Sankey/SankeyColumnComposition.js"],
+      c["Series/TreeUtilities.js"],
+      c["Core/Utilities.js"],
     ],
-    function (b, h, l, e, t, w, g, n, k) {
-      const {
-          series: a,
-          seriesTypes: { column: c },
-        } = w,
-        { getLevelOptions: q } = n,
-        {
-          extend: x,
-          isObject: A,
-          merge: p,
-          pick: v,
-          relativeLength: u,
-          stableSort: z,
-        } = k;
-      class f extends c {
-        constructor() {
-          super(...arguments);
-          this.translationFactor =
-            this.points =
-            this.options =
-            this.nodeWidth =
-            this.nodes =
-            this.nodePadding =
-            this.nodeLookup =
-            this.group =
-            this.data =
-            this.colDistance =
-              void 0;
+    function (c, f, m, k, q, z, g, d) {
+      var n =
+          (this && this.__extends) ||
+          (function () {
+            var a = function (c, b) {
+              a =
+                Object.setPrototypeOf ||
+                ({ __proto__: [] } instanceof Array &&
+                  function (b, a) {
+                    b.__proto__ = a;
+                  }) ||
+                function (b, a) {
+                  for (var c in a) a.hasOwnProperty(c) && (b[c] = a[c]);
+                };
+              return a(c, b);
+            };
+            return function (c, b) {
+              function d() {
+                this.constructor = c;
+              }
+              a(c, b);
+              c.prototype =
+                null === b
+                  ? Object.create(b)
+                  : ((d.prototype = b.prototype), new d());
+            };
+          })(),
+        a = q.series,
+        e = q.seriesTypes.column,
+        w = g.getLevelOptions;
+      g = d.extend;
+      var u = d.isObject,
+        v = d.merge,
+        t = d.pick,
+        p = d.relativeLength,
+        r = d.stableSort;
+      d = (function (a) {
+        function d() {
+          var b = (null !== a && a.apply(this, arguments)) || this;
+          b.colDistance = void 0;
+          b.data = void 0;
+          b.group = void 0;
+          b.nodeLookup = void 0;
+          b.nodePadding = void 0;
+          b.nodes = void 0;
+          b.nodeWidth = void 0;
+          b.options = void 0;
+          b.points = void 0;
+          b.translationFactor = void 0;
+          return b;
         }
-        static getDLOptions(a) {
-          const d = A(a.optionsPoint) ? a.optionsPoint.dataLabels : {};
-          a = A(a.level) ? a.level.dataLabels : {};
-          return p({ style: {} }, a, d);
-        }
-        createNodeColumns() {
-          const a = [];
-          this.nodes.forEach(function (d) {
-            d.setNodeColumn();
-            a[d.column] || (a[d.column] = g.compose([], this));
-            a[d.column].push(d);
+        n(d, a);
+        d.getDLOptions = function (b) {
+          var a = u(b.optionsPoint) ? b.optionsPoint.dataLabels : {};
+          b = u(b.level) ? b.level.dataLabels : {};
+          return v({ style: {} }, b, a);
+        };
+        d.prototype.createNodeColumns = function () {
+          var b = [];
+          this.nodes.forEach(function (a) {
+            a.setNodeColumn();
+            b[a.column] || (b[a.column] = z.compose([], this));
+            b[a.column].push(a);
           }, this);
-          for (let d = 0; d < a.length; d++)
-            "undefined" === typeof a[d] && (a[d] = g.compose([], this));
-          return a;
-        }
-        order(a, b) {
-          const d = this;
-          "undefined" === typeof a.level &&
-            ((a.level = b),
-            a.linksFrom.forEach(function (a) {
-              a.toNode && d.order(a.toNode, b + 1);
-            }));
-        }
-        generatePoints() {
-          l.generatePoints.apply(this, arguments);
-          const a = this;
+          for (var a = 0; a < b.length; a++)
+            "undefined" === typeof b[a] && (b[a] = z.compose([], this));
+          return b;
+        };
+        d.prototype.generatePoints = function () {
+          function b(a, c) {
+            "undefined" === typeof a.level &&
+              ((a.level = c),
+              a.linksFrom.forEach(function (a) {
+                a.toNode && b(a.toNode, c + 1);
+              }));
+          }
+          m.generatePoints.apply(this, arguments);
           this.orderNodes &&
             (this.nodes
-              .filter(function (a) {
-                return 0 === a.linksTo.length;
+              .filter(function (b) {
+                return 0 === b.linksTo.length;
               })
-              .forEach(function (d) {
-                a.order(d, 0);
+              .forEach(function (a) {
+                b(a, 0);
               }),
-            z(this.nodes, function (a, d) {
-              return a.level - d.level;
+            r(this.nodes, function (b, a) {
+              return b.level - a.level;
             }));
-        }
-        getNodePadding() {
-          let a = this.options.nodePadding || 0;
+        };
+        d.prototype.getNodePadding = function () {
+          var b = this.options.nodePadding || 0;
           if (this.nodeColumns) {
-            const d = this.nodeColumns.reduce(
-              (a, d) => Math.max(a, d.length),
-              0
-            );
-            d * a > this.chart.plotSizeY && (a = this.chart.plotSizeY / d);
+            var a = this.nodeColumns.reduce(function (b, a) {
+              return Math.max(b, a.length);
+            }, 0);
+            a * b > this.chart.plotSizeY && (b = this.chart.plotSizeY / a);
           }
-          return a;
-        }
-        hasData() {
+          return b;
+        };
+        d.prototype.hasData = function () {
           return !!this.processedXData.length;
-        }
-        pointAttribs(a, c) {
-          if (!a) return {};
-          const d = this,
-            f =
+        };
+        d.prototype.pointAttribs = function (b, a) {
+          if (!b) return {};
+          var d = this,
+            l =
               d.mapOptionsToLevel[
-                (a.isNode ? a.level : a.fromNode.level) || 0
+                (b.isNode ? b.level : b.fromNode.level) || 0
               ] || {},
-            m = a.options,
-            g = (f.states && f.states[c || ""]) || {};
-          c = [
+            g = b.options,
+            f = (l.states && l.states[a || ""]) || {};
+          a = [
             "colorByPoint",
             "borderColor",
             "borderWidth",
             "linkOpacity",
             "opacity",
           ].reduce(function (a, b) {
-            a[b] = v(g[b], m[b], f[b], d.options[b]);
+            a[b] = t(f[b], g[b], l[b], d.options[b]);
             return a;
           }, {});
-          const e = v(g.color, m.color, c.colorByPoint ? a.color : f.color);
-          return a.isNode
+          var E = t(f.color, g.color, a.colorByPoint ? b.color : l.color);
+          return b.isNode
             ? {
-                fill: e,
-                stroke: c.borderColor,
-                "stroke-width": c.borderWidth,
-                opacity: c.opacity,
+                fill: E,
+                stroke: a.borderColor,
+                "stroke-width": a.borderWidth,
+                opacity: a.opacity,
               }
-            : { fill: b.parse(e).setOpacity(c.linkOpacity).get() };
-        }
-        drawTracker() {
-          c.prototype.drawTracker.call(this, this.points);
-          c.prototype.drawTracker.call(this, this.nodes);
-        }
-        drawPoints() {
-          c.prototype.drawPoints.call(this, this.points);
-          c.prototype.drawPoints.call(this, this.nodes);
-        }
-        drawDataLabels() {
-          c.prototype.drawDataLabels.call(this, this.points);
-          c.prototype.drawDataLabels.call(this, this.nodes);
-        }
-        translate() {
+            : { fill: c.parse(E).setOpacity(a.linkOpacity).get() };
+        };
+        d.prototype.render = function () {
+          var a = this.points;
+          this.points = this.points.concat(this.nodes || []);
+          e.prototype.render.call(this);
+          this.points = a;
+        };
+        d.prototype.translate = function () {
           this.processedXData || this.processData();
           this.generatePoints();
           this.nodeColumns = this.createNodeColumns();
-          this.nodeWidth = u(this.options.nodeWidth, this.chart.plotSizeX);
-          const a = this,
-            b = this.chart,
-            c = this.options,
-            f = this.nodeWidth,
-            g = this.nodeColumns;
+          this.nodeWidth = p(this.options.nodeWidth, this.chart.plotSizeX);
+          var a = this,
+            c = this.chart,
+            d = this.options,
+            g = this.nodeWidth,
+            f = this.nodeColumns;
           this.nodePadding = this.getNodePadding();
-          this.translationFactor = g.reduce(
-            (b, d) => Math.min(b, d.sankeyColumn.getTranslationFactor(a)),
-            Infinity
-          );
+          this.translationFactor = f.reduce(function (b, c) {
+            return Math.min(b, c.sankeyColumn.getTranslationFactor(a));
+          }, Infinity);
           this.colDistance =
-            (b.plotSizeX - f - c.borderWidth) / Math.max(1, g.length - 1);
-          a.mapOptionsToLevel = q({
+            (c.plotSizeX - g - d.borderWidth) / Math.max(1, f.length - 1);
+          a.mapOptionsToLevel = w({
             from: 1,
-            levels: c.levels,
-            to: g.length - 1,
+            levels: d.levels,
+            to: f.length - 1,
             defaults: {
-              borderColor: c.borderColor,
-              borderRadius: c.borderRadius,
-              borderWidth: c.borderWidth,
+              borderColor: d.borderColor,
+              borderRadius: d.borderRadius,
+              borderWidth: d.borderWidth,
               color: a.color,
-              colorByPoint: c.colorByPoint,
+              colorByPoint: d.colorByPoint,
               levelIsConstant: !0,
-              linkColor: c.linkColor,
-              linkLineWidth: c.linkLineWidth,
-              linkOpacity: c.linkOpacity,
-              states: c.states,
+              linkColor: d.linkColor,
+              linkLineWidth: d.linkLineWidth,
+              linkOpacity: d.linkOpacity,
+              states: d.states,
             },
           });
-          g.forEach(function (b) {
-            b.forEach(function (d) {
-              a.translateNode(d, b);
+          f.forEach(function (b) {
+            b.forEach(function (c) {
+              a.translateNode(c, b);
             });
           }, this);
           this.nodes.forEach(function (b) {
@@ -709,92 +701,92 @@
                 (a.translateLink(b), (b.allowShadow = !1));
             });
           });
-        }
-        translateLink(a) {
-          var b = (b, c) => {
-            c = b.offset(a, c) * g;
-            return Math.min(
-              b.nodeY + c,
-              b.nodeY + ((b.shapeArgs && b.shapeArgs.height) || 0) - e
-            );
-          };
-          let d = a.fromNode;
-          var c = a.toNode;
-          let f = this.chart,
+        };
+        d.prototype.translateLink = function (a) {
+          var b = function (b, d) {
+              d = b.offset(a, d) * g;
+              return Math.min(
+                b.nodeY + d,
+                b.nodeY + ((b.shapeArgs && b.shapeArgs.height) || 0) - e
+              );
+            },
+            c = a.fromNode,
+            d = a.toNode,
+            f = this.chart,
             g = this.translationFactor,
-            e = Math.max(a.weight * g, this.options.minLinkWidth);
-          var k =
-            (f.inverted ? -this.colDistance : this.colDistance) *
-            this.options.curveFactor;
-          let h = b(d, "linksFrom");
-          b = b(c, "linksTo");
-          let l = d.nodeX,
-            n = this.nodeWidth;
-          c = c.nodeX;
-          var p = a.outgoing,
-            q = c > l + n;
+            e = Math.max(a.weight * g, this.options.minLinkWidth),
+            h =
+              (f.inverted ? -this.colDistance : this.colDistance) *
+              this.options.curveFactor,
+            k = b(c, "linksFrom");
+          b = b(d, "linksTo");
+          var p = c.nodeX,
+            m = this.nodeWidth;
+          d = d.nodeX;
+          var q = a.outgoing,
+            n = d > p + m;
           f.inverted &&
-            ((h = f.plotSizeY - h),
+            ((k = f.plotSizeY - k),
             (b = (f.plotSizeY || 0) - b),
-            (n = -n),
+            (m = -m),
             (e = -e),
-            (q = l > c));
+            (n = p > d));
           a.shapeType = "path";
-          a.linkBase = [h, h + e, b, b + e];
-          if (q && "number" === typeof b)
+          a.linkBase = [k, k + e, b, b + e];
+          if (n && "number" === typeof b)
             a.shapeArgs = {
               d: [
-                ["M", l + n, h],
-                ["C", l + n + k, h, c - k, b, c, b],
-                ["L", c + (p ? n : 0), b + e / 2],
-                ["L", c, b + e],
-                ["C", c - k, b + e, l + n + k, h + e, l + n, h + e],
+                ["M", p + m, k],
+                ["C", p + m + h, k, d - h, b, d, b],
+                ["L", d + (q ? m : 0), b + e / 2],
+                ["L", d, b + e],
+                ["C", d - h, b + e, p + m + h, k + e, p + m, k + e],
                 ["Z"],
               ],
             };
           else if ("number" === typeof b) {
-            k = c - 20 - e;
-            p = c - 20;
-            q = l + n;
-            const d = q + 20,
-              g = d + e,
-              m = h,
-              r = h + e,
-              v = r + 20,
-              u = v + (f.plotHeight - h - e),
-              t = u + 20,
-              y = t + e,
-              C = b,
-              w = C + e,
-              E = w + 20,
-              x = t + 0.7 * e,
-              B = c - 0.7 * e,
-              D = q + 0.7 * e;
+            h = d - 20 - e;
+            q = d - 20;
+            n = p + m;
+            var r = n + 20,
+              t = r + e,
+              v = k,
+              u = k + e,
+              x = u + 20,
+              w = x + (f.plotHeight - k - e),
+              B = w + 20,
+              z = B + e,
+              D = b,
+              C = D + e,
+              F = C + 20,
+              G = B + 0.7 * e,
+              H = d - 0.7 * e,
+              I = n + 0.7 * e;
             a.shapeArgs = {
               d: [
-                ["M", q, m],
-                ["C", D, m, g, r - 0.7 * e, g, v],
-                ["L", g, u],
-                ["C", g, x, D, y, q, y],
-                ["L", c, y],
-                ["C", B, y, k, x, k, u],
-                ["L", k, E],
-                ["C", k, w - 0.7 * e, B, C, c, C],
-                ["L", c, w],
-                ["C", p, w, p, w, p, E],
-                ["L", p, u],
-                ["C", p, t, p, t, c, t],
-                ["L", q, t],
-                ["C", d, t, d, t, d, u],
-                ["L", d, v],
-                ["C", d, r, d, r, q, r],
+                ["M", n, v],
+                ["C", I, v, t, u - 0.7 * e, t, x],
+                ["L", t, w],
+                ["C", t, G, I, z, n, z],
+                ["L", d, z],
+                ["C", H, z, h, G, h, w],
+                ["L", h, F],
+                ["C", h, C - 0.7 * e, H, D, d, D],
+                ["L", d, C],
+                ["C", q, C, q, C, q, F],
+                ["L", q, w],
+                ["C", q, B, q, B, d, B],
+                ["L", n, B],
+                ["C", r, B, r, B, r, w],
+                ["L", r, x],
+                ["C", r, u, r, u, n, u],
                 ["Z"],
               ],
             };
           }
           a.dlBox = {
-            x: l + (c - l + n) / 2,
-            y: h + (b - h) / 2,
+            x: p + (d - p + m) / 2,
+            y: k + (b - k) / 2,
             height: e,
             width: 0,
           };
@@ -803,80 +795,118 @@
             : [a.dlBox.x, a.dlBox.y + e / 2];
           a.y = a.plotY = 1;
           a.x = a.plotX = 1;
-          a.color || (a.color = d.color);
-        }
-        translateNode(a, b) {
-          var c = this.translationFactor;
-          const d = this.chart,
-            e = this.options,
-            { borderRadius: g, borderWidth: h = 0 } = e;
-          var k = a.getSum();
-          const m = Math.max(Math.round(k * c), this.options.minLinkWidth),
-            n = Math.round(this.nodeWidth);
-          var l = (Math.round(h) % 2) / 2,
-            p = b.sankeyColumn.offset(a, c);
-          b =
+          a.color || (a.color = c.color);
+        };
+        d.prototype.translateNode = function (a, c) {
+          var b = this.translationFactor,
+            e = this.chart,
+            f = this.options,
+            g = a.getSum(),
+            h = Math.max(Math.round(g * b), this.options.minLinkWidth),
+            k = Math.round(this.nodeWidth),
+            l = (Math.round(f.borderWidth) % 2) / 2,
+            m = c.sankeyColumn.offset(a, b);
+          c =
             Math.floor(
-              v(p.absoluteTop, b.sankeyColumn.top(c) + p.relativeTop)
+              t(m.absoluteTop, c.sankeyColumn.top(b) + m.relativeTop)
             ) + l;
           l =
-            Math.floor(this.colDistance * a.column + h / 2) +
-            u(a.options.offsetHorizontal || 0, n) +
+            Math.floor(this.colDistance * a.column + f.borderWidth / 2) +
+            p(a.options.offsetHorizontal || 0, k) +
             l;
-          l = d.inverted ? d.plotSizeX - l : l;
-          if ((a.sum = k)) {
-            a.shapeType = "roundedRect";
+          l = e.inverted ? e.plotSizeX - l : l;
+          if ((a.sum = g)) {
+            a.shapeType = "rect";
             a.nodeX = l;
-            a.nodeY = b;
-            k = l;
-            c = b;
-            p = a.options.width || e.width || n;
-            let h = a.options.height || e.height || m;
-            const q = u("object" === typeof g ? g.radius : g || 0, p);
-            d.inverted &&
-              ((k = l - n),
-              (c = d.plotSizeY - b - m),
-              (p = a.options.height || e.height || n),
-              (h = a.options.width || e.width || m));
-            a.dlOptions = f.getDLOptions({
+            a.nodeY = c;
+            g = l;
+            b = c;
+            m = a.options.width || f.width || k;
+            var n = a.options.height || f.height || h;
+            e.inverted &&
+              ((g = l - k),
+              (b = e.plotSizeY - c - h),
+              (m = a.options.height || f.height || k),
+              (n = a.options.width || f.width || h));
+            a.dlOptions = d.getDLOptions({
               level: this.mapOptionsToLevel[a.level],
               optionsPoint: a.options,
             });
             a.plotX = 1;
             a.plotY = 1;
-            a.tooltipPos = d.inverted
-              ? [d.plotSizeY - c - h / 2, d.plotSizeX - k - p / 2]
-              : [k + p / 2, c + h / 2];
+            a.tooltipPos = e.inverted
+              ? [e.plotSizeY - b - n / 2, e.plotSizeX - g - m / 2]
+              : [g + m / 2, b + n / 2];
             a.shapeArgs = {
-              x: k,
-              y: c,
-              width: p,
-              height: h,
-              r: q,
+              x: g,
+              y: b,
+              width: m,
+              height: n,
               display: a.hasShape() ? "" : "none",
             };
           } else a.dlOptions = { enabled: !1 };
-        }
-      }
-      f.defaultOptions = p(c.defaultOptions, t);
-      l.compose(e, f);
-      x(f.prototype, {
+        };
+        d.defaultOptions = v(e.defaultOptions, {
+          borderWidth: 0,
+          colorByPoint: !0,
+          curveFactor: 0.33,
+          dataLabels: {
+            enabled: !0,
+            backgroundColor: "none",
+            crop: !1,
+            nodeFormat: void 0,
+            nodeFormatter: function () {
+              return this.point.name;
+            },
+            format: void 0,
+            formatter: function () {},
+            inside: !0,
+          },
+          inactiveOtherPoints: !0,
+          linkOpacity: 0.5,
+          opacity: 1,
+          minLinkWidth: 0,
+          nodeWidth: 20,
+          nodePadding: 10,
+          showInLegend: !1,
+          states: {
+            hover: { linkOpacity: 1, opacity: 1 },
+            inactive: {
+              linkOpacity: 0.1,
+              opacity: 0.1,
+              animation: { duration: 50 },
+            },
+          },
+          tooltip: {
+            followPointer: !0,
+            headerFormat:
+              '<span style="font-size: 10px">{series.name}</span><br/>',
+            pointFormat:
+              "{point.fromNode.name} \u2192 {point.toNode.name}: <b>{point.weight}</b><br/>",
+            nodeFormat: "{point.name}: <b>{point.sum}</b><br/>",
+          },
+        });
+        return d;
+      })(e);
+      m.compose(k, d);
+      g(d.prototype, {
         animate: a.prototype.animate,
-        createNode: l.createNode,
+        createNode: m.createNode,
         forceDL: !0,
         invertible: !0,
         isCartesian: !1,
         orderNodes: !0,
         noSharedTooltip: !0,
         pointArrayMap: ["from", "to", "weight"],
-        pointClass: e,
-        searchPoint: h.noop,
+        pointClass: k,
+        searchPoint: f.noop,
       });
-      w.registerSeriesType("sankey", f);
+      q.registerSeriesType("sankey", d);
       ("");
-      return f;
+      ("");
+      return d;
     }
   );
-  t(b, "masters/modules/sankey.src.js", [], function () {});
+  q(c, "masters/modules/sankey.src.js", [], function () {});
 });
 //# sourceMappingURL=sankey.js.map
