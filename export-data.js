@@ -1,5 +1,5 @@
 /*
- Highcharts JS v11.0.1 (2023-05-08)
+ Highcharts JS v10.2.0 (2022-07-05)
 
  Exporting module
 
@@ -7,120 +7,6 @@
 
  License: www.highcharts.com/license
 */
-"use strict";
-var $jscomp = $jscomp || {};
-$jscomp.scope = {};
-$jscomp.ASSUME_ES5 = !1;
-$jscomp.ASSUME_NO_NATIVE_MAP = !1;
-$jscomp.ASSUME_NO_NATIVE_SET = !1;
-$jscomp.SIMPLE_FROUND_POLYFILL = !1;
-$jscomp.ISOLATE_POLYFILLS = !1;
-$jscomp.defineProperty =
-  $jscomp.ASSUME_ES5 || "function" == typeof Object.defineProperties
-    ? Object.defineProperty
-    : function (a, b, c) {
-        if (a == Array.prototype || a == Object.prototype) return a;
-        a[b] = c.value;
-        return a;
-      };
-$jscomp.getGlobal = function (a) {
-  a = [
-    "object" == typeof globalThis && globalThis,
-    a,
-    "object" == typeof window && window,
-    "object" == typeof self && self,
-    "object" == typeof global && global,
-  ];
-  for (var b = 0; b < a.length; ++b) {
-    var c = a[b];
-    if (c && c.Math == Math) return c;
-  }
-  throw Error("Cannot find global object");
-};
-$jscomp.global = $jscomp.getGlobal(this);
-$jscomp.polyfills = {};
-$jscomp.propertyToPolyfillSymbol = {};
-$jscomp.POLYFILL_PREFIX = "$jscp$";
-$jscomp.IS_SYMBOL_NATIVE =
-  "function" === typeof Symbol && "symbol" === typeof Symbol("x");
-var $jscomp$lookupPolyfilledValue = function (a, b) {
-  var c = $jscomp.propertyToPolyfillSymbol[b];
-  if (null == c) return a[b];
-  c = a[c];
-  return void 0 !== c ? c : a[b];
-};
-$jscomp.polyfill = function (a, b, c, d) {
-  b &&
-    ($jscomp.ISOLATE_POLYFILLS
-      ? $jscomp.polyfillIsolated(a, b, c, d)
-      : $jscomp.polyfillUnisolated(a, b, c, d));
-};
-$jscomp.polyfillUnisolated = function (a, b, c, d) {
-  c = $jscomp.global;
-  a = a.split(".");
-  for (d = 0; d < a.length - 1; d++) {
-    var e = a[d];
-    e in c || (c[e] = {});
-    c = c[e];
-  }
-  a = a[a.length - 1];
-  d = c[a];
-  b = b(d);
-  b != d &&
-    null != b &&
-    $jscomp.defineProperty(c, a, { configurable: !0, writable: !0, value: b });
-};
-$jscomp.polyfillIsolated = function (a, b, c, d) {
-  var e = a.split(".");
-  a = 1 === e.length;
-  d = e[0];
-  d = !a && d in $jscomp.polyfills ? $jscomp.polyfills : $jscomp.global;
-  for (var p = 0; p < e.length - 1; p++) {
-    var n = e[p];
-    n in d || (d[n] = {});
-    d = d[n];
-  }
-  e = e[e.length - 1];
-  c = $jscomp.IS_SYMBOL_NATIVE && "es6" === c ? d[e] : null;
-  b = b(c);
-  null != b &&
-    (a
-      ? $jscomp.defineProperty($jscomp.polyfills, e, {
-          configurable: !0,
-          writable: !0,
-          value: b,
-        })
-      : b !== c &&
-        (($jscomp.propertyToPolyfillSymbol[e] = $jscomp.IS_SYMBOL_NATIVE
-          ? $jscomp.global.Symbol(e)
-          : $jscomp.POLYFILL_PREFIX + e),
-        (e = $jscomp.propertyToPolyfillSymbol[e]),
-        $jscomp.defineProperty(d, e, {
-          configurable: !0,
-          writable: !0,
-          value: b,
-        })));
-};
-$jscomp.polyfill(
-  "Array.prototype.includes",
-  function (a) {
-    return a
-      ? a
-      : function (a, c) {
-          var d = this;
-          d instanceof String && (d = String(d));
-          var e = d.length;
-          c = c || 0;
-          for (0 > c && (c = Math.max(c + e, 0)); c < e; c++) {
-            var b = d[c];
-            if (b === a || Object.is(b, a)) return !0;
-          }
-          return !1;
-        };
-  },
-  "es7",
-  "es3"
-);
 (function (a) {
   "object" === typeof module && module.exports
     ? ((a["default"] = a), (module.exports = a))
@@ -128,60 +14,31 @@ $jscomp.polyfill(
     ? define(
         "highcharts/modules/export-data",
         ["highcharts", "highcharts/modules/exporting"],
-        function (b) {
-          a(b);
-          a.Highcharts = b;
+        function (m) {
+          a(m);
+          a.Highcharts = m;
           return a;
         }
       )
     : a("undefined" !== typeof Highcharts ? Highcharts : void 0);
 })(function (a) {
-  function b(a, b, e, p) {
-    a.hasOwnProperty(b) ||
-      ((a[b] = p.apply(null, e)),
+  function m(a, d, c, p) {
+    a.hasOwnProperty(d) ||
+      ((a[d] = p.apply(null, c)),
       "function" === typeof CustomEvent &&
         window.dispatchEvent(
           new CustomEvent("HighchartsModuleLoaded", {
-            detail: { path: b, module: a[b] },
+            detail: { path: d, module: a[d] },
           })
         ));
   }
   a = a ? a._modules : {};
-  b(a, "Extensions/ExportData/ExportDataDefaults.js", [], function () {
-    "";
-    return {
-      exporting: {
-        csv: {
-          annotations: { itemDelimiter: "; ", join: !1 },
-          columnHeaderFormatter: null,
-          dateFormat: "%Y-%m-%d %H:%M:%S",
-          decimalPoint: null,
-          itemDelimiter: null,
-          lineDelimiter: "\n",
-        },
-        showTable: !1,
-        useMultiLevelHeaders: !0,
-        useRowspanHeaders: !0,
-      },
-      lang: {
-        downloadCSV: "Download CSV",
-        downloadXLS: "Download XLS",
-        exportData: {
-          annotationHeader: "Annotations",
-          categoryHeader: "Category",
-          categoryDatetimeHeader: "DateTime",
-        },
-        viewData: "View data table",
-        hideData: "Hide data table",
-      },
-    };
-  });
-  b(a, "Extensions/DownloadURL.js", [a["Core/Globals.js"]], function (a) {
-    const { isSafari: b } = a,
+  m(a, "Extensions/DownloadURL.js", [a["Core/Globals.js"]], function (a) {
+    var d = a.isSafari,
       c = a.win,
       p = c.document,
-      n = c.URL || c.webkitURL || c,
-      C = (a.dataURLtoBlob = function (a) {
+      f = c.URL || c.webkitURL || c,
+      r = (a.dataURLtoBlob = function (a) {
         if (
           (a = a
             .replace(/filename=.*;/, "")
@@ -191,598 +48,572 @@ $jscomp.polyfill(
           c.ArrayBuffer &&
           c.Uint8Array &&
           c.Blob &&
-          n.createObjectURL
+          f.createObjectURL
         ) {
-          const d = c.atob(a[3]);
-          var b = new c.ArrayBuffer(d.length);
-          b = new c.Uint8Array(b);
-          for (let a = 0; a < b.length; ++a) b[a] = d.charCodeAt(a);
-          a = new c.Blob([b], { type: a[1] });
-          return n.createObjectURL(a);
+          var d = c.atob(a[3]),
+            y = new c.ArrayBuffer(d.length);
+          y = new c.Uint8Array(y);
+          for (var l = 0; l < y.length; ++l) y[l] = d.charCodeAt(l);
+          a = new c.Blob([y], { type: a[1] });
+          return f.createObjectURL(a);
         }
       });
-    a = a.downloadURL = function (a, d) {
-      var e = c.navigator;
-      const n = p.createElement("a");
-      if ("string" === typeof a || a instanceof String || !e.msSaveOrOpenBlob) {
-        a = `${a}`;
-        e = /Edge\/\d+/.test(e.userAgent);
+    a = a.downloadURL = function (a, f) {
+      var w = c.navigator,
+        l = p.createElement("a");
+      if ("string" === typeof a || a instanceof String || !w.msSaveOrOpenBlob) {
+        a = "".concat(a);
+        w = /Edge\/\d+/.test(w.userAgent);
         if (
-          (b &&
+          (d &&
             "string" === typeof a &&
             0 === a.indexOf("data:application/pdf")) ||
-          e ||
+          w ||
           2e6 < a.length
         )
-          if (((a = C(a) || ""), !a)) throw Error("Failed to convert to blob");
-        if ("undefined" !== typeof n.download)
-          (n.href = a),
-            (n.download = d),
-            p.body.appendChild(n),
-            n.click(),
-            p.body.removeChild(n);
+          if (((a = r(a) || ""), !a)) throw Error("Failed to convert to blob");
+        if ("undefined" !== typeof l.download)
+          (l.href = a),
+            (l.download = f),
+            p.body.appendChild(l),
+            l.click(),
+            p.body.removeChild(l);
         else
           try {
-            const b = c.open(a, "chart");
-            if ("undefined" === typeof b || null === b)
+            var n = c.open(a, "chart");
+            if ("undefined" === typeof n || null === n)
               throw Error("Failed to open window");
-          } catch (N) {
+          } catch (t) {
             c.location.href = a;
           }
-      } else e.msSaveOrOpenBlob(a, d);
+      } else w.msSaveOrOpenBlob(a, f);
     };
-    return { dataURLtoBlob: C, downloadURL: a };
+    return { dataURLtoBlob: r, downloadURL: a };
   });
-  b(
+  m(
     a,
-    "Extensions/ExportData/ExportData.js",
+    "Extensions/ExportData.js",
     [
+      a["Core/Axis/Axis.js"],
+      a["Core/Chart/Chart.js"],
       a["Core/Renderer/HTML/AST.js"],
-      a["Extensions/ExportData/ExportDataDefaults.js"],
       a["Core/Globals.js"],
-      a["Core/Defaults.js"],
-      a["Extensions/DownloadURL.js"],
-      a["Core/Series/SeriesRegistry.js"],
+      a["Core/DefaultOptions.js"],
       a["Core/Utilities.js"],
+      a["Extensions/DownloadURL.js"],
     ],
-    function (a, b, e, p, n, C, r) {
-      function c() {
-        const a = this.getCSV(!0);
-        O(
-          P(a, "text/csv") || "data:text/csv,\ufeff" + encodeURIComponent(a),
-          this.getFilename() + ".csv"
-        );
-      }
-      function d() {
-        const a =
-          '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head>\x3c!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Ark1</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--\x3e<style>td{border:none;font-family: Calibri, sans-serif;} .number{mso-number-format:"0.00";} .text{ mso-number-format:"@";}</style><meta name=ProgId content=Excel.Sheet><meta charset=UTF-8></head><body>' +
-          this.getTable(!0) +
-          "</body></html>";
-        O(
-          P(a, "application/vnd.ms-excel") ||
-            "data:application/vnd.ms-excel;base64," +
-              t.btoa(unescape(encodeURIComponent(a))),
-          this.getFilename() + ".xls"
-        );
-      }
-      function U(a) {
-        let l = "";
-        const c = this.getDataRows(),
-          b = this.options.exporting.csv,
-          d = v(
-            b.decimalPoint,
-            "," !== b.itemDelimiter && a ? (1.1).toLocaleString()[1] : "."
-          ),
-          h = v(b.itemDelimiter, "," === d ? ";" : ","),
-          e = b.lineDelimiter;
-        c.forEach((a, b) => {
-          let f,
-            q = a.length;
-          for (; q--; )
-            (f = a[q]),
-              "string" === typeof f && (f = '"' + f + '"'),
-              "number" === typeof f &&
-                "." !== d &&
-                (f = f.toString().replace(".", d)),
-              (a[q] = f);
-          a.length = c.length ? c[0].length : 0;
-          l += a.join(h);
-          b < c.length - 1 && (l += e);
-        });
-        return l;
-      }
-      function N(a) {
-        const b = this.hasParallelCoordinates,
-          c = this.time,
-          l = (this.options.exporting && this.options.exporting.csv) || {},
-          d = this.xAxis,
-          h = {},
-          e = [],
-          n = [],
-          F = [];
-        var g = this.options.lang.exportData;
-        const y = g.categoryHeader,
-          D = g.categoryDatetimeHeader,
-          Q = function (b, c, d) {
-            if (l.columnHeaderFormatter) {
-              const a = l.columnHeaderFormatter(b, c, d);
-              if (!1 !== a) return a;
-            }
-            return b
-              ? b instanceof V
-                ? a
-                  ? {
-                      columnTitle: 1 < d ? c : b.name,
-                      topLevelColumnTitle: b.name,
-                    }
-                  : b.name + (1 < d ? " (" + c + ")" : "")
-                : (b.options.title && b.options.title.text) ||
-                  (b.dateTime ? D : y)
-              : y;
-          },
-          p = function (a, b, c) {
-            const l = {},
-              d = {};
-            b.forEach(function (b) {
-              var h = ((a.keyToAxis && a.keyToAxis[b]) || b) + "Axis";
-              h = W(c) ? a.chart[h][c] : a[h];
-              l[b] = (h && h.categories) || [];
-              d[b] = h && h.dateTime;
-            });
-            return { categoryMap: l, dateTimeValueAxisMap: d };
-          },
-          w = function (a, b) {
-            return a.data.filter((a) => "undefined" !== typeof a.y && a.name)
-              .length &&
-              b &&
-              !b.categories &&
-              !a.keyToAxis
-              ? a.pointArrayMap &&
-                a.pointArrayMap.filter((a) => "x" === a).length
-                ? (a.pointArrayMap.unshift("x"), a.pointArrayMap)
-                : ["x", "y"]
-              : a.pointArrayMap || ["y"];
-          },
-          A = [];
-        let k,
-          B,
-          x = 0;
-        this.series.forEach(function (f) {
-          const e = f.xAxis,
-            q = f.options.keys || w(f, e),
-            D = q.length,
-            k = !f.requireSorting && {},
-            E = d.indexOf(e);
-          let y = p(f, q),
-            z,
-            g;
-          if (
-            !1 !== f.options.includeInDataExport &&
-            !f.options.isInternal &&
-            !1 !== f.visible
-          ) {
-            X(A, function (a) {
-              return a[0] === E;
-            }) || A.push([E, x]);
-            for (g = 0; g < D; )
-              (B = Q(f, q[g], q.length)),
-                F.push(B.columnTitle || B),
-                a && n.push(B.topLevelColumnTitle || B),
-                g++;
-            z = {
-              chart: f.chart,
-              autoIncrement: f.autoIncrement,
-              options: f.options,
-              pointArrayMap: f.pointArrayMap,
-              index: f.index,
-            };
-            f.options.data.forEach(function (a, d) {
-              const w = { series: z };
-              let m;
-              b && (y = p(f, q, d));
-              f.pointClass.prototype.applyOptions.apply(w, [a]);
-              m = w.x;
-              G(h[m]) &&
-                h[m].seriesIndices.includes(z.index) &&
-                ((a = Object.keys(h)
-                  .filter((a) => h[a].seriesIndices.includes(z.index) && m)
-                  .filter((a) => 0 === a.indexOf(String(m)))),
-                (m = m.toString() + "," + a.length));
-              a = f.data[d] && f.data[d].name;
-              g = 0;
-              if (!e || "name" === f.exportKey || (!b && e && e.hasNames && a))
-                m = a;
-              k && (k[m] && (m += "|" + d), (k[m] = !0));
-              h[m] || ((h[m] = []), (h[m].xValues = []));
-              h[m].x = w.x;
-              h[m].name = a;
-              h[m].xValues[E] = w.x;
-              G(h[m].seriesIndices) || (h[m].seriesIndices = []);
-              for (
-                h[m].seriesIndices = [...h[m].seriesIndices, z.index];
-                g < D;
-
-              )
-                (d = q[g]),
-                  (a = w[d]),
-                  (h[m][x + g] = v(
-                    y.categoryMap[d][a],
-                    y.dateTimeValueAxisMap[d]
-                      ? c.dateFormat(l.dateFormat, a)
-                      : null,
-                    a
-                  )),
-                  g++;
-            });
-            x += g;
-          }
-        });
-        for (u in h) Object.hasOwnProperty.call(h, u) && e.push(h[u]);
-        let r, t;
-        g = a ? [n, F] : [F];
-        for (x = A.length; x--; ) {
-          r = A[x][0];
-          t = A[x][1];
-          k = d[r];
-          e.sort(function (a, b) {
-            return a.xValues[r] - b.xValues[r];
-          });
-          var u = Q(k);
-          g[0].splice(t, 0, u);
-          a && g[1] && g[1].splice(t, 0, u);
-          e.forEach(function (a) {
-            let b = a.name;
-            k &&
-              !G(b) &&
-              (k.dateTime
-                ? (a.x instanceof Date && (a.x = a.x.getTime()),
-                  (b = c.dateFormat(l.dateFormat, a.x)))
-                : (b = k.categories
-                    ? v(k.names[a.x], k.categories[a.x], a.x)
-                    : a.x));
-            a.splice(t, 0, b);
-          });
-        }
-        g = g.concat(e);
-        H(this, "exportData", { dataRows: g });
-        return g;
-      }
-      function Y(a) {
-        const b = (a) => {
-          if (!a.tagName || "#text" === a.tagName) return a.textContent || "";
-          const c = a.attributes;
-          let l = `<${a.tagName}`;
-          c &&
-            Object.keys(c).forEach((a) => {
-              l += ` ${a}="${c[a]}"`;
-            });
-          l += ">";
-          l += a.textContent || "";
-          (a.children || []).forEach((a) => {
-            l += b(a);
-          });
-          return (l += `</${a.tagName}>`);
-        };
-        a = this.getTableAST(a);
-        return b(a);
-      }
-      function Z(a) {
-        let b = 0;
-        var c = [];
-        const d = this.options,
-          l = a ? (1.1).toLocaleString()[1] : ".",
-          h = v(d.exporting.useMultiLevelHeaders, !0);
-        a = this.getDataRows(h);
-        const e = h ? a.shift() : null,
-          n = a.shift(),
-          p = function (a, b, c, d) {
-            let e = v(d, "");
-            b = "highcharts-text" + (b ? " " + b : "");
-            "number" === typeof e
-              ? ((e = e.toString()),
-                "," === l && (e = e.replace(".", l)),
-                (b = "highcharts-number"))
-              : d || (b = "highcharts-empty");
-            c = R({ class: b }, c);
-            return { tagName: a, attributes: c, textContent: e };
-          };
-        !1 !== d.exporting.tableCaption &&
-          c.push({
-            tagName: "caption",
-            attributes: { class: "highcharts-table-caption" },
-            textContent: v(
-              d.exporting.tableCaption,
-              d.title.text ? d.title.text : "Chart"
-            ),
-          });
-        for (let c = 0, d = a.length; c < d; ++c)
-          a[c].length > b && (b = a[c].length);
-        c.push(
-          (function (a, b, c) {
-            const l = [];
-            let e = 0;
-            c = c || (b && b.length);
-            let f = 0;
-            var k;
-            if ((k = h && a && b)) {
-              a: if (((k = a.length), b.length === k)) {
-                for (; k--; )
-                  if (a[k] !== b[k]) {
-                    k = !1;
-                    break a;
-                  }
-                k = !0;
-              } else k = !1;
-              k = !k;
-            }
-            if (k) {
-              for (k = []; e < c; ++e) {
-                var g = a[e];
-                var q = a[e + 1];
-                g === q
-                  ? ++f
-                  : f
-                  ? (k.push(
-                      p(
-                        "th",
-                        "highcharts-table-topheading",
-                        { scope: "col", colspan: f + 1 },
-                        g
-                      )
-                    ),
-                    (f = 0))
-                  : (g === b[e]
-                      ? d.exporting.useRowspanHeaders
-                        ? ((q = 2), delete b[e])
-                        : ((q = 1), (b[e] = ""))
-                      : (q = 1),
-                    (g = p(
-                      "th",
-                      "highcharts-table-topheading",
-                      { scope: "col" },
-                      g
-                    )),
-                    1 < q &&
-                      g.attributes &&
-                      ((g.attributes.valign = "top"),
-                      (g.attributes.rowspan = q)),
-                    k.push(g));
-              }
-              l.push({ tagName: "tr", children: k });
-            }
-            if (b) {
-              a = [];
-              e = 0;
-              for (c = b.length; e < c; ++e)
-                "undefined" !== typeof b[e] &&
-                  a.push(p("th", null, { scope: "col" }, b[e]));
-              l.push({ tagName: "tr", children: a });
-            }
-            return { tagName: "thead", children: l };
-          })(e, n, Math.max(b, n.length))
-        );
-        const g = [];
-        a.forEach(function (a) {
-          const c = [];
-          for (let d = 0; d < b; d++)
-            c.push(p(d ? "td" : "th", null, d ? {} : { scope: "row" }, a[d]));
-          g.push({ tagName: "tr", children: c });
-        });
-        c.push({ tagName: "tbody", children: g });
-        c = {
-          tree: {
-            tagName: "table",
-            id: `highcharts-data-table-${this.index}`,
-            children: c,
-          },
-        };
-        H(this, "aftergetTableAST", c);
-        return c.tree;
-      }
-      function aa() {
-        this.toggleDataTable(!1);
-      }
-      function ba(b) {
-        var c = (b = v(b, !this.isDataTableVisible)) && !this.dataTableDiv;
-        c &&
-          ((this.dataTableDiv = ca.createElement("div")),
-          (this.dataTableDiv.className = "highcharts-data-table"),
-          this.renderTo.parentNode.insertBefore(
-            this.dataTableDiv,
-            this.renderTo.nextSibling
-          ));
-        if (this.dataTableDiv) {
-          var d = this.dataTableDiv.style,
-            e = d.display;
-          d.display = b ? "block" : "none";
-          b &&
-            ((this.dataTableDiv.innerHTML = a.emptyHTML),
-            new a([this.getTableAST()]).addToDOM(this.dataTableDiv),
-            H(this, "afterViewData", {
-              element: this.dataTableDiv,
-              wasHidden: c || e !== d.display,
-            }));
-        }
-        this.isDataTableVisible = b;
-        c = this.exportDivElements;
-        e =
-          (d = this.options.exporting) &&
-          d.buttons &&
-          d.buttons.contextButton.menuItems;
-        b = this.options.lang;
-        d &&
-          d.menuItemDefinitions &&
-          b &&
-          b.viewData &&
-          b.hideData &&
-          e &&
-          c &&
-          (c = c[e.indexOf("viewData")]) &&
-          a.setElementHTML(
-            c,
-            this.isDataTableVisible ? b.hideData : b.viewData
-          );
-      }
-      function da() {
-        this.toggleDataTable(!0);
-      }
-      function P(a, b) {
-        const c = t.navigator,
-          d =
-            -1 < c.userAgent.indexOf("WebKit") &&
-            0 > c.userAgent.indexOf("Chrome"),
-          e = t.URL || t.webkitURL || t;
+    function (a, d, c, p, f, r, y) {
+      function m(a, e) {
+        var b = t.navigator,
+          B =
+            -1 < b.userAgent.indexOf("WebKit") &&
+            0 > b.userAgent.indexOf("Chrome"),
+          z = t.URL || t.webkitURL || t;
         try {
-          if (c.msSaveOrOpenBlob && t.MSBlobBuilder) {
-            const b = new t.MSBlobBuilder();
-            b.append(a);
-            return b.getBlob("image/svg+xml");
+          if (b.msSaveOrOpenBlob && t.MSBlobBuilder) {
+            var g = new t.MSBlobBuilder();
+            g.append(a);
+            return g.getBlob("image/svg+xml");
           }
-          if (!d)
-            return e.createObjectURL(new t.Blob(["\ufeff" + a], { type: b }));
-        } catch (h) {}
+          if (!B)
+            return z.createObjectURL(new t.Blob(["\ufeff" + a], { type: e }));
+        } catch (Q) {}
       }
-      function ea() {
-        const a = this,
-          b = a.dataTableDiv,
-          c = (a, b) => (c, d) => {
-            var e = (b ? c : d).children[a].textContent;
-            c = (b ? d : c).children[a].textContent;
-            return "" === e || "" === c || isNaN(e) || isNaN(c)
-              ? e.toString().localeCompare(c)
-              : e - c;
-          };
-        if (b && a.options.exporting && a.options.exporting.allowTableSorting) {
-          const d = b.querySelector("thead tr");
-          d &&
-            d.childNodes.forEach((d) => {
-              const e = d.closest("table");
-              d.addEventListener("click", function () {
-                const l = [...b.querySelectorAll("tr:not(thead tr)")],
-                  f = [...d.parentNode.children];
-                l.sort(
-                  c(
-                    f.indexOf(d),
-                    (a.ascendingOrderInTable = !a.ascendingOrderInTable)
-                  )
-                ).forEach((a) => {
-                  e.appendChild(a);
-                });
-                f.forEach((a) => {
-                  [
-                    "highcharts-sort-ascending",
-                    "highcharts-sort-descending",
-                  ].forEach((b) => {
-                    a.classList.contains(b) && a.classList.remove(b);
-                  });
-                });
-                d.classList.add(
-                  a.ascendingOrderInTable
-                    ? "highcharts-sort-ascending"
-                    : "highcharts-sort-descending"
-                );
-              });
-            });
-        }
-      }
-      function fa() {
+      var w =
+          (this && this.__spreadArray) ||
+          function (a, e, k) {
+            if (k || 2 === arguments.length)
+              for (var b = 0, z = e.length, g; b < z; b++)
+                (!g && b in e) ||
+                  (g || (g = Array.prototype.slice.call(e, 0, b)),
+                  (g[b] = e[b]));
+            return a.concat(g || Array.prototype.slice.call(e));
+          },
+        l = p.doc,
+        n = p.seriesTypes,
+        t = p.win;
+      p = f.getOptions;
+      f = f.setOptions;
+      var I = r.addEvent,
+        M = r.defined,
+        J = r.extend,
+        N = r.find,
+        G = r.fireEvent,
+        O = r.isNumber,
+        x = r.pick,
+        K = y.downloadURL;
+      f({
+        exporting: {
+          csv: {
+            annotations: { itemDelimiter: "; ", join: !1 },
+            columnHeaderFormatter: null,
+            dateFormat: "%Y-%m-%d %H:%M:%S",
+            decimalPoint: null,
+            itemDelimiter: null,
+            lineDelimiter: "\n",
+          },
+          showTable: !1,
+          useMultiLevelHeaders: !0,
+          useRowspanHeaders: !0,
+        },
+        lang: {
+          downloadCSV: "Download CSV",
+          downloadXLS: "Download XLS",
+          exportData: {
+            annotationHeader: "Annotations",
+            categoryHeader: "Category",
+            categoryDatetimeHeader: "DateTime",
+          },
+          viewData: "View data table",
+          hideData: "Hide data table",
+        },
+      });
+      I(d, "render", function () {
         this.options &&
           this.options.exporting &&
           this.options.exporting.showTable &&
           !this.options.chart.forExport &&
           this.viewData();
-      }
-      const { doc: ca, win: t } = e,
-        { getOptions: ha, setOptions: S } = p,
-        { downloadURL: O } = n,
-        {
-          series: V,
-          seriesTypes: {
-            arearange: I,
-            gantt: J,
-            map: K,
-            mapbubble: L,
-            treemap: M,
-          },
-        } = C,
-        {
-          addEvent: T,
-          defined: G,
-          extend: R,
-          find: X,
-          fireEvent: H,
-          isNumber: W,
-          pick: v,
-        } = r,
-        u = [];
-      ("");
-      return {
-        compose: function (a) {
-          r.pushUnique(u, a) &&
-            (T(a, "afterViewData", ea),
-            T(a, "render", fa),
-            (a = a.prototype),
-            (a.downloadCSV = c),
-            (a.downloadXLS = d),
-            (a.getCSV = U),
-            (a.getDataRows = N),
-            (a.getTable = Y),
-            (a.getTableAST = Z),
-            (a.hideData = aa),
-            (a.toggleDataTable = ba),
-            (a.viewData = da));
-          if (r.pushUnique(u, S)) {
-            if ((a = ha().exporting))
-              R(a.menuItemDefinitions, {
-                downloadCSV: {
-                  textKey: "downloadCSV",
-                  onclick: function () {
-                    this.downloadCSV();
-                  },
-                },
-                downloadXLS: {
-                  textKey: "downloadXLS",
-                  onclick: function () {
-                    this.downloadXLS();
-                  },
-                },
-                viewData: {
-                  textKey: "viewData",
-                  onclick: function () {
-                    this.toggleDataTable();
-                  },
-                },
-              }),
-                a.buttons &&
-                  a.buttons.contextButton.menuItems &&
-                  a.buttons.contextButton.menuItems.push(
-                    "separator",
-                    "downloadCSV",
-                    "downloadXLS",
-                    "viewData"
-                  );
-            S(b);
-          }
-          I &&
-            r.pushUnique(u, I) &&
-            (I.prototype.keyToAxis = { low: "y", high: "y" });
-          J &&
-            r.pushUnique(u, J) &&
-            (J.prototype.keyToAxis = { start: "x", end: "x" });
-          K && r.pushUnique(u, K) && (K.prototype.exportKey = "name");
-          L && r.pushUnique(u, L) && (L.prototype.exportKey = "name");
-          M && r.pushUnique(u, M) && (M.prototype.exportKey = "name");
-        },
+      });
+      I(d, "afterViewData", function () {
+        var a = this,
+          e = a.dataTableDiv,
+          k = document.querySelectorAll("thead")[0].querySelectorAll("tr")[0],
+          B = function (a, b) {
+            return function (e, g) {
+              var k = (b ? e : g).children[a].textContent;
+              e = (b ? g : e).children[a].textContent;
+              return "" === k || "" === e || isNaN(k) || isNaN(e)
+                ? k.toString().localeCompare(e)
+                : k - e;
+            };
+          };
+        e &&
+          k.childNodes.forEach(function (b) {
+            var k = b.closest("table");
+            b.addEventListener("click", function () {
+              var g = w([], e.querySelectorAll("tr:not(thead tr)"), !0),
+                d = w([], b.parentNode.children, !0);
+              g.sort(
+                B(
+                  d.indexOf(b),
+                  (a.ascendingOrderInTable = !a.ascendingOrderInTable)
+                )
+              ).forEach(function (a) {
+                k.appendChild(a);
+              });
+              d.forEach(function (a) {
+                [
+                  "highcharts-sort-ascending",
+                  "highcharts-sort-descending",
+                ].forEach(function (b) {
+                  a.classList.contains(b) && a.classList.remove(b);
+                });
+              });
+              b.classList.add(
+                a.ascendingOrderInTable
+                  ? "highcharts-sort-ascending"
+                  : "highcharts-sort-descending"
+              );
+            });
+          });
+      });
+      d.prototype.setUpKeyToAxis = function () {
+        n.arearange &&
+          (n.arearange.prototype.keyToAxis = { low: "y", high: "y" });
+        n.gantt && (n.gantt.prototype.keyToAxis = { start: "x", end: "x" });
       };
+      d.prototype.getDataRows = function (b) {
+        var e = this.hasParallelCoordinates,
+          k = this.time,
+          d = (this.options.exporting && this.options.exporting.csv) || {},
+          c = this.xAxis,
+          g = {},
+          l = [],
+          n = [],
+          p = [],
+          D;
+        var E = this.options.lang.exportData;
+        var f = E.categoryHeader,
+          P = E.categoryDatetimeHeader,
+          u = function (q, e, k) {
+            if (d.columnHeaderFormatter) {
+              var g = d.columnHeaderFormatter(q, e, k);
+              if (!1 !== g) return g;
+            }
+            return q
+              ? q instanceof a
+                ? (q.options.title && q.options.title.text) ||
+                  (q.dateTime ? P : f)
+                : b
+                ? {
+                    columnTitle: 1 < k ? e : q.name,
+                    topLevelColumnTitle: q.name,
+                  }
+                : q.name + (1 < k ? " (" + e + ")" : "")
+              : f;
+          },
+          L = function (a, b, e) {
+            var q = {},
+              k = {};
+            b.forEach(function (b) {
+              var g = ((a.keyToAxis && a.keyToAxis[b]) || b) + "Axis";
+              g = O(e) ? a.chart[g][e] : a[g];
+              q[b] = (g && g.categories) || [];
+              k[b] = g && g.dateTime;
+            });
+            return { categoryMap: q, dateTimeValueAxisMap: k };
+          },
+          r = function (a, b) {
+            return a.data.filter(function (a) {
+              return "undefined" !== typeof a.y && a.name;
+            }).length &&
+              b &&
+              !b.categories &&
+              !a.keyToAxis
+              ? a.pointArrayMap &&
+                a.pointArrayMap.filter(function (a) {
+                  return "x" === a;
+                }).length
+                ? (a.pointArrayMap.unshift("x"), a.pointArrayMap)
+                : ["x", "y"]
+              : a.pointArrayMap || ["y"];
+          },
+          v = [];
+        var A = 0;
+        this.setUpKeyToAxis();
+        this.series.forEach(function (a) {
+          var h = a.xAxis,
+            q = a.options.keys || r(a, h),
+            B = q.length,
+            l = !a.requireSorting && {},
+            m = c.indexOf(h),
+            z = L(a, q),
+            f;
+          if (
+            !1 !== a.options.includeInDataExport &&
+            !a.options.isInternal &&
+            !1 !== a.visible
+          ) {
+            N(v, function (a) {
+              return a[0] === m;
+            }) || v.push([m, A]);
+            for (f = 0; f < B; )
+              (D = u(a, q[f], q.length)),
+                p.push(D.columnTitle || D),
+                b && n.push(D.topLevelColumnTitle || D),
+                f++;
+            var F = {
+              chart: a.chart,
+              autoIncrement: a.autoIncrement,
+              options: a.options,
+              pointArrayMap: a.pointArrayMap,
+            };
+            a.options.data.forEach(function (b, u) {
+              e && (z = L(a, q, u));
+              var v = { series: F };
+              a.pointClass.prototype.applyOptions.apply(v, [b]);
+              b = v.x;
+              var c = a.data[u] && a.data[u].name;
+              f = 0;
+              if (!h || "name" === a.exportKey || (!e && h && h.hasNames && c))
+                b = c;
+              l && (l[b] && (b += "|" + u), (l[b] = !0));
+              g[b] || ((g[b] = []), (g[b].xValues = []));
+              g[b].x = v.x;
+              g[b].name = c;
+              for (g[b].xValues[m] = v.x; f < B; )
+                (u = q[f]),
+                  (c = v[u]),
+                  (g[b][A + f] = x(
+                    z.categoryMap[u][c],
+                    z.dateTimeValueAxisMap[u]
+                      ? k.dateFormat(d.dateFormat, c)
+                      : null,
+                    c
+                  )),
+                  f++;
+            });
+            A += f;
+          }
+        });
+        for (h in g) Object.hasOwnProperty.call(g, h) && l.push(g[h]);
+        var h = b ? [n, p] : [p];
+        for (A = v.length; A--; ) {
+          var F = v[A][0];
+          var H = v[A][1];
+          var m = c[F];
+          l.sort(function (a, b) {
+            return a.xValues[F] - b.xValues[F];
+          });
+          E = u(m);
+          h[0].splice(H, 0, E);
+          b && h[1] && h[1].splice(H, 0, E);
+          l.forEach(function (a) {
+            var b = a.name;
+            m &&
+              !M(b) &&
+              (m.dateTime
+                ? (a.x instanceof Date && (a.x = a.x.getTime()),
+                  (b = k.dateFormat(d.dateFormat, a.x)))
+                : (b = m.categories
+                    ? x(m.names[a.x], m.categories[a.x], a.x)
+                    : a.x));
+            a.splice(H, 0, b);
+          });
+        }
+        h = h.concat(l);
+        G(this, "exportData", { dataRows: h });
+        return h;
+      };
+      d.prototype.getCSV = function (a) {
+        var b = "",
+          k = this.getDataRows(),
+          c = this.options.exporting.csv,
+          d = x(
+            c.decimalPoint,
+            "," !== c.itemDelimiter && a ? (1.1).toLocaleString()[1] : "."
+          ),
+          g = x(c.itemDelimiter, "," === d ? ";" : ","),
+          f = c.lineDelimiter;
+        k.forEach(function (a, e) {
+          for (var c, l = a.length; l--; )
+            (c = a[l]),
+              "string" === typeof c && (c = '"' + c + '"'),
+              "number" === typeof c &&
+                "." !== d &&
+                (c = c.toString().replace(".", d)),
+              (a[l] = c);
+          a.length = k.length ? k[0].length : 0;
+          b += a.join(g);
+          e < k.length - 1 && (b += f);
+        });
+        return b;
+      };
+      d.prototype.getTable = function (a) {
+        var b = function (a) {
+          if (!a.tagName || "#text" === a.tagName) return a.textContent || "";
+          var c = a.attributes,
+            e = "<".concat(a.tagName);
+          c &&
+            Object.keys(c).forEach(function (a) {
+              var b = c[a];
+              e += " ".concat(a, '="').concat(b, '"');
+            });
+          e += ">";
+          e += a.textContent || "";
+          (a.children || []).forEach(function (a) {
+            e += b(a);
+          });
+          return (e += "</".concat(a.tagName, ">"));
+        };
+        a = this.getTableAST(a);
+        return b(a);
+      };
+      d.prototype.getTableAST = function (a) {
+        var b = 0,
+          c = [],
+          d = this.options,
+          f = a ? (1.1).toLocaleString()[1] : ".",
+          g = x(d.exporting.useMultiLevelHeaders, !0);
+        a = this.getDataRows(g);
+        var l = g ? a.shift() : null,
+          m = a.shift(),
+          n = function (a, b, c, e) {
+            var d = x(e, "");
+            b = "highcharts-text" + (b ? " " + b : "");
+            "number" === typeof d
+              ? ((d = d.toString()),
+                "," === f && (d = d.replace(".", f)),
+                (b = "highcharts-number"))
+              : e || (b = "highcharts-empty");
+            c = J({ class: b }, c);
+            return { tagName: a, attributes: c, textContent: d };
+          };
+        !1 !== d.exporting.tableCaption &&
+          c.push({
+            tagName: "caption",
+            attributes: { class: "highcharts-table-caption" },
+            textContent: x(
+              d.exporting.tableCaption,
+              d.title.text ? d.title.text : "Chart"
+            ),
+          });
+        for (var p = 0, r = a.length; p < r; ++p)
+          a[p].length > b && (b = a[p].length);
+        c.push(
+          (function (a, b, c) {
+            var e = [],
+              f = 0;
+            c = c || (b && b.length);
+            var l = 0,
+              h;
+            if ((h = g && a && b)) {
+              a: if (((h = a.length), b.length === h)) {
+                for (; h--; )
+                  if (a[h] !== b[h]) {
+                    h = !1;
+                    break a;
+                  }
+                h = !0;
+              } else h = !1;
+              h = !h;
+            }
+            if (h) {
+              for (h = []; f < c; ++f) {
+                var k = a[f];
+                var m = a[f + 1];
+                k === m
+                  ? ++l
+                  : l
+                  ? (h.push(
+                      n(
+                        "th",
+                        "highcharts-table-topheading",
+                        { scope: "col", colspan: l + 1 },
+                        k
+                      )
+                    ),
+                    (l = 0))
+                  : (k === b[f]
+                      ? d.exporting.useRowspanHeaders
+                        ? ((m = 2), delete b[f])
+                        : ((m = 1), (b[f] = ""))
+                      : (m = 1),
+                    (k = n(
+                      "th",
+                      "highcharts-table-topheading",
+                      { scope: "col" },
+                      k
+                    )),
+                    1 < m &&
+                      k.attributes &&
+                      ((k.attributes.valign = "top"),
+                      (k.attributes.rowspan = m)),
+                    h.push(k));
+              }
+              e.push({ tagName: "tr", children: h });
+            }
+            if (b) {
+              h = [];
+              f = 0;
+              for (c = b.length; f < c; ++f)
+                "undefined" !== typeof b[f] &&
+                  h.push(n("th", null, { scope: "col" }, b[f]));
+              e.push({ tagName: "tr", children: h });
+            }
+            return { tagName: "thead", children: e };
+          })(l, m, Math.max(b, m.length))
+        );
+        var t = [];
+        a.forEach(function (a) {
+          for (var c = [], e = 0; e < b; e++)
+            c.push(n(e ? "td" : "th", null, e ? {} : { scope: "row" }, a[e]));
+          t.push({ tagName: "tr", children: c });
+        });
+        c.push({ tagName: "tbody", children: t });
+        c = {
+          tree: {
+            tagName: "table",
+            id: "highcharts-data-table-".concat(this.index),
+            children: c,
+          },
+        };
+        G(this, "aftergetTableAST", c);
+        return c.tree;
+      };
+      d.prototype.downloadCSV = function () {
+        var a = this.getCSV(!0);
+        K(
+          m(a, "text/csv") || "data:text/csv,\ufeff" + encodeURIComponent(a),
+          this.getFilename() + ".csv"
+        );
+      };
+      d.prototype.downloadXLS = function () {
+        var a =
+          '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head>\x3c!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Ark1</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--\x3e<style>td{border:none;font-family: Calibri, sans-serif;} .number{mso-number-format:"0.00";} .text{ mso-number-format:"@";}</style><meta name=ProgId content=Excel.Sheet><meta charset=UTF-8></head><body>' +
+          this.getTable(!0) +
+          "</body></html>";
+        K(
+          m(a, "application/vnd.ms-excel") ||
+            "data:application/vnd.ms-excel;base64," +
+              t.btoa(unescape(encodeURIComponent(a))),
+          this.getFilename() + ".xls"
+        );
+      };
+      d.prototype.viewData = function () {
+        this.toggleDataTable(!0);
+      };
+      d.prototype.hideData = function () {
+        this.toggleDataTable(!1);
+      };
+      d.prototype.toggleDataTable = function (a) {
+        (a = x(a, !this.isDataTableVisible)) &&
+          !this.dataTableDiv &&
+          ((this.dataTableDiv = l.createElement("div")),
+          (this.dataTableDiv.className = "highcharts-data-table"),
+          this.renderTo.parentNode.insertBefore(
+            this.dataTableDiv,
+            this.renderTo.nextSibling
+          ));
+        this.dataTableDiv &&
+          ((this.dataTableDiv.style.display = a ? "block" : "none"),
+          a &&
+            ((this.dataTableDiv.innerHTML = c.emptyHTML),
+            new c([this.getTableAST()]).addToDOM(this.dataTableDiv),
+            G(this, "afterViewData", this.dataTableDiv)));
+        this.isDataTableVisible = a;
+        a = this.exportDivElements;
+        var b = this.options.exporting,
+          d = b && b.buttons && b.buttons.contextButton.menuItems;
+        b = this.options.lang;
+        C &&
+          C.menuItemDefinitions &&
+          b &&
+          b.viewData &&
+          b.hideData &&
+          d &&
+          a &&
+          (a = a[d.indexOf("viewData")]) &&
+          c.setElementHTML(
+            a,
+            this.isDataTableVisible ? b.hideData : b.viewData
+          );
+      };
+      var C = p().exporting;
+      C &&
+        (J(C.menuItemDefinitions, {
+          downloadCSV: {
+            textKey: "downloadCSV",
+            onclick: function () {
+              this.downloadCSV();
+            },
+          },
+          downloadXLS: {
+            textKey: "downloadXLS",
+            onclick: function () {
+              this.downloadXLS();
+            },
+          },
+          viewData: {
+            textKey: "viewData",
+            onclick: function () {
+              this.toggleDataTable();
+            },
+          },
+        }),
+        C.buttons &&
+          C.buttons.contextButton.menuItems.push(
+            "separator",
+            "downloadCSV",
+            "downloadXLS",
+            "viewData"
+          ));
+      n.map && (n.map.prototype.exportKey = "name");
+      n.mapbubble && (n.mapbubble.prototype.exportKey = "name");
+      n.treemap && (n.treemap.prototype.exportKey = "name");
     }
   );
-  b(
-    a,
-    "masters/modules/export-data.src.js",
-    [a["Core/Globals.js"], a["Extensions/ExportData/ExportData.js"]],
-    function (a, b) {
-      b.compose(a.Chart);
-    }
-  );
+  m(a, "masters/modules/export-data.src.js", [], function () {});
 });
 //# sourceMappingURL=export-data.js.map
