@@ -20,7 +20,7 @@ const urlArr = [
   "https://dekan006.github.io/visiology/helpTooltip.js",
   "https://dekan006.github.io/visiology/filterFoundationSingleSupplier.js",
   "https://dekan006.github.io/visiology/checkbox.js",
-  "https://dekan006.github.io/visiology/myModule.js",
+  "https://dekan006.github.io/visiology/sankey.js",
 ];
 
 urlArr.forEach((url) => {
