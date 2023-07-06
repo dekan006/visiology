@@ -3,8 +3,5 @@ function textUpdateData(w) {
  
   w.general.text = text;
  
-  TextRender({
-      text: w.general,
-      style: w.style
-  });
+  return w;
 }
