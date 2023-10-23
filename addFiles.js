@@ -25,10 +25,10 @@ const urlArr = [
   // "https://dekan006.github.io/visiology/export-data.js",
 ];
 
-urlArr.forEach((url) => {
-  const script = document.createElement("script");
-  script.src = url;
-  script.type = "text/javascript";
-  script.classList.add("visiology-liba");
-  document.querySelector("head").appendChild(script);
-});
+// urlArr.forEach((url) => {
+//   const script = document.createElement("script");
+//   script.src = url;
+//   script.type = "text/javascript";
+//   script.classList.add("visiology-liba");
+//   document.querySelector("head").appendChild(script);
+// });
